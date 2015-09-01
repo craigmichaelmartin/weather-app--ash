@@ -1,0 +1,20 @@
+<div class="day">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="day-label">{{weekdayShort}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <img class="day-image" src="{{iconUrl}}"></img>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1 col-sm-offset-1">
+            <span class="day-temperature">{{#if english}}{{highEnglish}}{{else}}{{highMetric}}{{/if}}&deg;</span>
+        </div>
+        <div class="col-sm-1 col-sm-offset-3">
+            <span class="day-temperature">{{#if english}}{{lowEnglish}}{{else}}{{lowMetric}}{{/if}}&deg;</span>
+        </div>
+    </div>
+</div>

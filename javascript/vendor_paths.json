@@ -1,0 +1,15 @@
+{
+    "requirejs":                "../components/requirejs/require",
+    "rjs":                      "../components/r.js/dist/r",
+    "JSON-js":                  "../components/JSON-js/json2",
+    "jquery":                   "../components/jquery/dist/jquery",
+    "backbone":                 "../components/backbone/backbone",
+    "jquery-ui":                "../components/jquery-ui/jquery-ui",
+    "bootstrap":                "../components/bootstrap/dist/js/bootstrap",
+    "text":                     "../components/requirejs-text/text",
+    "underscore":               "../components/underscore/underscore",
+    "handlebars":               "../components/handlebars/handlebars",
+    "handlebarsHelpers":        "util/handlebarsHelpers",
+    "d3":                       "../components/d3/d3",
+    "es5shim":                  "../components/es5-shim/es5-shim"
+}

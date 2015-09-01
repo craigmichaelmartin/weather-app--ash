@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-sm-12">
+        {{weekday}}, {{#if english}}{{monthname}} {{day}}{{else}}{{day}} {{monthname}}{{/if}} at {{civil}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Conditions
+    </div>
+    <div class="col-sm-6">
+        {{condition}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Temperature
+    </div>
+    <div class="col-sm-6">
+        {{#if english}}{{temperatureEnglish}}&deg;F{{else}}{{temperatureMetric}}&deg;C{{/if}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Feels Like
+    </div>
+    <div class="col-sm-6">
+        {{#if english}}{{feelsLikeEnglish}}&deg;F{{else}}{{feelsLikeMetric}}&deg;C{{/if}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Humidity
+    </div>
+    <div class="col-sm-6">
+        {{humidity}}%
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Wind
+    </div>
+    <div class="col-sm-6">
+        {{#if english}}{{WindSpeedEnglish}}mph{{else}}{{windSpeedMetric}}kph{{/if}} {{windDirection}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Percipitation
+    </div>
+    <div class="col-sm-6">
+        {{#if english}}{{percipitationEnglish}} inches{{else}}{{percipitationMetric}} centimeters{{/if}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Heat Index
+    </div>
+    <div class="col-sm-6">
+        {{#if english}}{{heatIndexEnglish}}&deg;F{{else}}{{heatIndexMetric}}&deg;C{{/if}}
+    </div>
+</div>

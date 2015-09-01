@@ -1,0 +1,11 @@
+{
+    "jquery":                       {"exports": "$"},
+    "jquery-ui":                    {"deps": ["jquery"]},
+    "jQuery-Timepicker-Addon":      {"deps": ["jquery", "jquery-ui"]},
+    "jquery-ui-timepicker-addon":   {"deps": ["jquery"]},
+    "underscore":                   {"exports": "_"},
+    "backbone":                     {"deps": ["jquery", "underscore"], "exports": "Backbone"},
+    "bootstrap":                    {"deps": ["jquery"]},
+    "handlebars":                   {"exports": "Handlebars"},
+    "handlebarsHelpers":            {"deps": ["handlebars"]}
+}

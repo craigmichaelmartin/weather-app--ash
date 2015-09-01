@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="zip js-zip js-menu-item">
+            <span class="zip-marker glyphicon glyphicon-map-marker"></span>
+            <span class="zip-display js-zip-display js-display" {{#unless zip}}style="display:none"{{/unless}}>
+                {{zip}}
+                <span class="zip-pencil glyphicon glyphicon-pencil"></span>
+            </span>
+            <input value="{{zip}}" class="form-group form-control js-edit zip-edit" {{#if zip}}style="display:none"{{/if}}>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="conditions">
+            {{#if english}}{{temperatureEnglish}}&deg;F{{else}}{{temperatureMetric}}&deg;C{{/if}}
+            {{condition}}
+        </div>
+    </div>
+</div>

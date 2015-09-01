@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-sm-12">
+        {{weekday}}, {{#if english}}{{monthname}} {{day}}{{else}}{{day}} {{monthname}}{{/if}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Conditions
+    </div>
+    <div class="col-sm-6">
+        {{condition}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Low
+    </div>
+    <div class="col-sm-6">
+        {{#if english}}{{lowEnglish}}&deg;F{{else}}{{lowMetric}}&deg;C{{/if}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        High
+    </div>
+    <div class="col-sm-6">
+        {{#if english}}{{highEnglish}}&deg;F{{else}}{{highMetric}}&deg;C{{/if}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Snowfall
+    </div>
+    <div class="col-sm-6">
+        {{#if english}}{{totalSnowEnglish}} inches{{else}}{{totalSnowMetric}} centimeters{{/if}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Humidity
+    </div>
+    <div class="col-sm-6">
+        {{averageHumidity}}%
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Wind
+    </div>
+    <div class="col-sm-6">
+        {{#if english}}{{averageWindEnglish}}mph{{else}}{{averageWindMetric}}kph{{/if}} {{averageWindDirection}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Percipitation
+    </div>
+    <div class="col-sm-6">
+        {{#if english}}{{percipitationEnglish}} inches{{else}}{{percipitationMetric}} centimeters{{/if}}
+    </div>
+</div>
