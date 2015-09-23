@@ -180,13 +180,12 @@ module.exports = function (grunt) {
         karma: {
             options: {
                 basePath: process.cwd(),
-                singleRun: true,
-                captureTimeout: 7000,
-                browsers: ['PhantomJS'],
                 frameworks: ['mocha', 'sinon-chai'],
                 plugins: [
                     'karma-mocha',
                     'karma-phantomjs-launcher',
+                    'karma-firefox-launcher',
+                    'karma-chrome-launcher',
                     'karma-sinon-chai'
                 ],
                 files: [
@@ -225,15 +224,17 @@ module.exports = function (grunt) {
                     }
                 ]
             },
-            run: {
-                options: {
-                    singleRun: false,
-                }
-            },
-            once: {
+            integration: {
                 options: {
                     singleRun: true,
-                    browserNoActivityTimeout: 100000
+                    browsers: ['PhantomJS'],
+                }
+            },
+            dev: {
+                options: {
+                    singleRun: false,
+                    browsers: ['Chrome'],
+                    captureTimeout: 10000,
                 }
             }
         },

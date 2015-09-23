@@ -28,7 +28,9 @@
     "karma-jasmine": "~0.3.6",
     "phantomjs": "~1.9.18",
     "karma-phantomjs-launcher": "~0.2.1",
-    "karma-sinon-chai": "~1.0.0"
+    "karma-sinon-chai": "~1.0.0",
+    "karma-chrome-launcher": "~0.2.0",
+    "karma-firefox-launcher": "~0.1.6"
   },
   "scripts": {
     "setup": "npm install && rm -rf components && bower install && grunt dist",
