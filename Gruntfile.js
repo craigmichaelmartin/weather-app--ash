@@ -245,6 +245,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('dist-css', ['less', 'autoprefixer', 'csscomb', 'csslint', 'cssmin']);
     grunt.registerTask('dist', ['clean', 'dist-css', 'requirejs']);
-    grunt.registerTask('server', ['connect:' + grunt.option('target') || 'prod']);
+    grunt.registerTask('runserver', ['connect:' + grunt.option('target') || 'prod']);
     grunt.registerTask('default', ['dist']);
 };

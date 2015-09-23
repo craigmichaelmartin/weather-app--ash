@@ -34,6 +34,6 @@
   },
   "scripts": {
     "setup": "npm install && rm -rf components && bower install && grunt dist",
-    "demo": "npm run setup && grunt server"
+    "demo": "npm run setup && grunt runserver"
   }
 }
