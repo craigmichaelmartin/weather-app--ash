@@ -11,10 +11,8 @@ define([
         template: Handlebars.compile(template),
 
         events: {
-            'click .js-display': 'clickForecastData',
-            'change .js-edit': 'changeZip',
-            'blur .js-edit': 'stopEditingForecastData',
-            'change .js-scale': 'changeScale'
+            'click .js-display': 'showEditMode',
+            'keyup .js-edit': 'updateZip'
         },
 
         initialize: function (options) {
@@ -22,34 +20,29 @@ define([
             this.model = options.appState;
             this.currentHour = options.currentHour;
             this.render();
-            this.listenTo(this.model, 'dataReady', this.render);
+            this.$edit = this.$('.js-edit');
+            this.$display = this.$('.js-display');
+            this.listenTo(this.model, 'change:zip', this.render);   // discepancy in time between these two
+            this.listenTo(this.model, 'dataReady', this.render);    // is the loading time. todo: loading visual
             this.listenTo(this.model, 'change:scale', this.render);
+            this.listenTo(this.model, 'invalid', this.flagInvalidZip);
+        },
+
+        flagInvalidZip: function(e) {
+            this.$edit.addClass('is-invalid');
         },
 
         getTemplateData: function () {
             return _.extend({english: this.model.get('scale') === 'english'}, this.model.attributes, this.currentHour.attributes);
         },
 
-        stopEditingForecastData: function (e) {
-            var target = $(e.currentTarget);
-            target.hide();
-            target.parent().find('.js-display').show();
+        updateZip: function () {
+            this.model.set({zip: +this.$edit.val()}, {validate: true});
         },
 
-        changeZip: function (e) {
-            this.model.set('zip', $(e.currentTarget).val());
-        },
-
-        clickForecastData: function (e) {
-            var target = $(e.currentTarget);
-            target.hide();
-            var editTarget = target.parent().find('.js-edit');
-            editTarget.show().focus().val(editTarget.val());
-        },
-
-        changeScale: function () {
-            var scale = this.model.get('scale') === 'english' ? 'metric' : 'english';
-            this.model.set('scale', scale);
+        showEditMode: function () {
+            this.$display.hide();
+            this.$edit.show().focus().val(this.model.get('zip'));
         }
 
     });
