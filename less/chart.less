@@ -1,16 +1,20 @@
+.d3Chart {
+    height: 350px;
+}
 .bar:hover {
     fill: brown;
 }
 
 .d3Chart rect {
     fill: rgba(255, 255, 255, 0.75);
+    shape-rendering: crispEdges;
 }
 
 .d3Chart text {
     fill: rgb(60, 60, 60);
     text-shadow: .1em .1em .5em white;
     font: 12px sans-serif;
-    text-anchor: end;
+    text-anchor: middle;
 }
 
 .svg-container {
@@ -24,6 +28,6 @@
 .svg-content-responsive {
     display: inline-block;
     position: absolute;
-    top: 10px;
+    top: 0;
     left: 0;
 }

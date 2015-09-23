@@ -35,13 +35,13 @@ define([
 
         afterRender: function () {
             var margin = {
-                upper: 20,
+                upper: 0,
                 right: 0,
-                bottom: 30,
+                bottom: 0,
                 left: 0
             };
             var width = $('.js-d3Chart').width() - margin.left - margin.right;
-            var height = 350 - margin.upper - margin.bottom;
+            var height = $('.js-d3Chart').height() - margin.upper - margin.bottom;
 
             var x = d3.scale.ordinal()
                 .rangeRoundBands([0, width], 0.1);
@@ -80,8 +80,8 @@ define([
                 .data(data)
               .enter().append("rect")
                 .attr("class", "bar")
-                .attr("x", function (d) {
-                    return x(d.time);
+                .attr("x", function (d, i) {
+                    return i * (width / data.length);
                 })
                 .attr("width", x.rangeBand())
                 .attr("y", function (d) {
@@ -90,10 +90,6 @@ define([
                 .attr("height", function (d) {
                     return height - y(d.temp);
                 })
-                //.attr("fill", function (d) { return "rgb(" + ((+d.temp)*2) + ",0," + ((+d.temp)*2) + ")"; })
-                //.attr("fill", function (d) {
-                //    return "#a7dce4";
-                //})
                 .attr("data-time", getTime);
 
             svg.selectAll()
@@ -101,9 +97,7 @@ define([
                 .enter()
                 .append("text")
                 .attr("x", function (d, i) {
-                    //return (i * x.rangeBand()) + (i * x.rangeBand() * .108) + (x.rangeBand() / 2) - 2;
-                    //return (i * x.rangeBand()) + (i * x.rangeBand() * .114) + (x.rangeBand() / 2) - 2;
-                    return (i * x.rangeBand()) + (i * x.rangeBand() * 0.114) + (x.rangeBand() / 2) - 6;
+                    return ((i * width/data.length) + (width/data.length/2) - 3);
                 })
                 .attr("y", function (d, i) {
                     return y(d.temp) + 25;
@@ -118,9 +112,8 @@ define([
                 .append("text")
                 .attr("font-family", "sans-serif")
                 .attr("font-size", "16px")
-                //.attr("fill", "#979797")
                 .attr("x", function (d, i) {
-                    return (i * x.rangeBand()) + (i * x.rangeBand() * .114) + (x.rangeBand() / 2) - 6;
+                    return ((i * width/data.length) + (width/data.length/2) - 3);
                 })
                 .attr("y", function (d, i) {
                     return y(d.temp) + 50;
