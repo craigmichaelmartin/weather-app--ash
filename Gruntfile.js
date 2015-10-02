@@ -199,27 +199,11 @@ module.exports = function (grunt) {
                         included: false
                     },
                     {
-                        pattern: 'test/<%= karma.options.frameworks[0] %>/specs/*.spec.js',
-                        included: false
-                    },
-                    {
-                        pattern: 'test/<%= karma.options.frameworks[0] %>/specs/**/*.spec.js',
-                        included: false
-                    },
-                    {
-                        pattern: 'test/<%= karma.options.frameworks[0] %>/helpers.js',
-                        included: false
-                    },
-                    {
-                        pattern: 'test/<%= karma.options.frameworks[0] %>/fixtures/*.json',
-                        included: false
-                    },
-                    {
-                        pattern: 'test/<%= karma.options.frameworks[0] %>/fixtures/*.js',
-                        included: false
-                    },
-                    {
                         pattern: 'components/**/*.js',
+                        included: false
+                    },
+                    {
+                        pattern: 'test/<%= karma.options.frameworks[0] %>/**/*',
                         included: false
                     }
                 ]
