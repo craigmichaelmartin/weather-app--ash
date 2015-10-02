@@ -15,13 +15,6 @@ define([
             'click .bar': 'hourClicked'
         },
 
-        hourClicked: function (e) {
-            var time = $(e.currentTarget).data('time');
-            var hour = +time.split(time.slice(-2))[0];
-            hour = time.indexOf('PM') > -1 ? hour + 12 : hour;
-            this.appState.set('hour', hour);
-        },
-
         initialize: function (options) {
             options = options || {};
             this.appState = options.appState;
@@ -31,6 +24,16 @@ define([
             this.listenTo(this.appState, 'change:hour', this.render);
             this.listenTo(this.appState, 'change:scale', this.render);
             this.render();
+        },
+
+        hourClicked: function (e) {
+            var time = $(e.currentTarget).data('time');
+            this.appState.set('hour', this.getHourFromTime(time));
+        },
+
+        getHourFromTime: function(time) {
+            var hour = +time.split(time.slice(-2))[0];
+            return time.indexOf('PM') > -1 ? hour + 12 : hour;
         },
 
         afterRender: function () {
