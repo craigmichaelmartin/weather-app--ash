@@ -46,7 +46,7 @@ define([
                 averageWindMetric: results.avewind.kph,
                 averageWindEnglish: results.avewind.mph,
                 percipitationEnglish: results.qpf_allday.in,
-                percipitationMetric: results.qpf_allday.cm
+                percipitationMetric: results.qpf_allday.mm
             };
         }
 
