@@ -6,6 +6,23 @@ define([
 
     var Hour = Model.extend({
 
+        defaultKeys: [
+            'monthname', 'weekday', 'weekdayShort', 'day', 'hour', 'civil',
+            'condition', 'feelsLikeEnglish', 'feelsLikeMetric', 'humidity',
+            'iconUrl', 'iconAlt', 'temperatureEnglish', 'temperatureMetric',
+            'dewpointEnglish', 'dewpointMetric', 'heatIndexEnglish',
+            'heatIndexMetric', 'windDirection', 'windSpeedEnglish',
+            'windSpeedMetric', 'percipitationEnglish', 'percipitationMetric'
+        ],
+
+        defaults: function() {
+            var defaults = {};
+            this.defaultKeys.forEach(function(key) {
+                defaults[key] = undefined;
+            });
+            return defaults;
+        },
+
         parse: function (results) {
             return {
                 monthname: results.FCTTIME.month_name,

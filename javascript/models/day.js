@@ -6,6 +6,22 @@ define([
 
     var Day = Model.extend({
 
+        defaultKeys: [
+            'condition', 'iconUrl', 'iconAlt', 'highEnglish', 'lowEnglish',
+            'highMetric', 'lowMetric', 'monthname', 'weekday', 'weekdayShort',
+            'day', 'totalSnowEnglish', 'totalSnowMetric', 'averageHumidity',
+            'averageWindDirection', 'averageWindMetric', 'averageWindEnglish',
+            'percipitationEnglish', 'percipitationMetric'
+        ],
+
+        defaults: function() {
+            var defaults = {};
+            this.defaultKeys.forEach(function(key) {
+                defaults[key] = undefined;
+            });
+            return defaults;
+        },
+
         buildUrl: function (zip) {
             return 'http://api.wunderground.com/api/3f6df2a3f0916b99/hourly/q/' + (zip || 'autoip') + '.json';
         },
