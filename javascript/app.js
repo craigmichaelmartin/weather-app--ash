@@ -59,21 +59,21 @@ define([
 
         // Adds an `is-someCondition` class to the app element.
         addConditionClass: function(condition) {
-            this.$el.addClass('is-' + this.getConditionClass(condition));
+            this.$el.addClass(this.getConditionClass(condition));
         },
 
         // Returns a condition in the set {rainy, snowy, clear, cloudy}
         getConditionClass: function(condition) {
-            if (condition.toLowerCase().indexOf('rain', 'thunderstorm') > -1) {
-                return 'rainy';
+            if (/rain|thunderstorm|showers/i.test(condition)) {
+                return 'is-rainy';
             }
-            if (condition.toLowerCase().indexOf('snow') > -1) {
-                return 'snowy';
+            if (/snow/i.test(condition)) {
+                return 'is-snowy';
             }
-            if (condition.toLowerCase().indexOf('clear') > -1) {
-                return 'clear';
+            if (/clear|sunny/i.test(condition)) {
+                return 'is-clear';
             }
-            return 'cloudy';
+            return 'is-cloudy';
         },
 
         // Kicks off the views that comprise the app.
