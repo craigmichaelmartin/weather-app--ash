@@ -15,7 +15,7 @@ define(function(require) {
             expect(App).not.to.be.undefined;
         });
 
-        describe('after initializing', function() {
+        describe('after being initialized', function() {
 
             beforeEach(function() {
                 this.server = sinon.fakeServer.create();
@@ -60,6 +60,30 @@ define(function(require) {
 
             it("should have an is-something class describing the condition", function() {
                 expect(this.app.$el.hasClass('is-clear')).to.be.true;
+            });
+
+            describe("the app state model", function() {
+
+                it("should have a zip code", function() {
+                    expect(this.app.appState.get('zip')).to.equal(44147);
+                });
+
+            });
+
+            describe("the hours model", function() {
+
+                it("should have a 200 models", function() {
+                    expect(this.app.hours.length).to.equal(240);
+                });
+
+            });
+
+            describe("the days model", function() {
+
+                it("should have a length of 10 models", function() {
+                    expect(this.app.days.length).to.equal(10);
+                });
+
             });
 
         });

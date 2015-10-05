@@ -13,10 +13,14 @@ define(function(require) {
 
         describe('after being initialized', function() {
 
+            beforeEach(function() {
+                this.hours = new HoursCollection();
+            });
+
             describe('the model value', function() {
 
                 it('should be an hour model', function() {
-                    expect(new HoursCollection.prototype.model()).to.be.instanceof(HourModel);
+                    expect(new this.hours.model()).to.be.instanceof(HourModel);
                 });
 
             });
@@ -24,18 +28,18 @@ define(function(require) {
             describe('the buildUrl function', function() {
 
                 it("should correctly handle no zip", function() {
-                    expect(HoursCollection.prototype.buildUrl()).to.equal('http://api.wunderground.com/api/3f6df2a3f0916b99/hourly10day/q/autoip.json');
+                    expect(this.hours.buildUrl()).to.equal('http://api.wunderground.com/api/3f6df2a3f0916b99/hourly10day/q/autoip.json');
                 });
 
                 it("should correctly handle a zip", function() {
-                    expect(HoursCollection.prototype.buildUrl(44024)).to.equal('http://api.wunderground.com/api/3f6df2a3f0916b99/hourly10day/q/44024.json');
+                    expect(this.hours.buildUrl(44024)).to.equal('http://api.wunderground.com/api/3f6df2a3f0916b99/hourly10day/q/44024.json');
                 });
 
             });
 
             describe("the parse function", function() {
                 it('should correctly return an array based on the response', function() {
-                    var parsed = HoursCollection.prototype.parse(Helpers.Fixtures.hourlyGeo);
+                    var parsed = this.hours.parse(Helpers.Fixtures.hourlyGeo);
                     expect(parsed.length).to.equal(240);
                 });
             });
@@ -52,21 +56,36 @@ define(function(require) {
                 });
 
                 it('should attempt to hit the server via base collection', function() {
-                    HoursCollection.prototype.fetch({zip: 44024});
+                    this.hours.fetch({zip: 44024});
                     expect(this.BaseCollection.prototype.fetch.called).to.be.true;
                 });
 
                 it('should place passed in url option in super the super call options', function() {
-                    var originalBuildUrl = HoursCollection.prototype.buildUrl;
-                    HoursCollection.prototype.buildUrl = sinon.stub().returns('testing-url-44024');
-                    HoursCollection.prototype.fetch({zip: 44024});
+                    var originalBuildUrl = this.hours.buildUrl;
+                    this.hours.buildUrl = sinon.stub().returns('testing-url-44024');
+                    this.hours.fetch({zip: 44024});
                     // using calledWith isn't working (maybe due to options being an object)
                     // so instead will dig into what it was called with manually
                     // expect(this.BaseCollection.prototype.fetch.calledWith({url: 'testing-url-44024'})).to.be.true;
                     expect(this.BaseCollection.prototype.fetch.args[0][0].url == 'testing-url-44024').to.be.true;
-                    HoursCollection.prototype.buildUrl = originalBuildUrl;
+                    this.hours.buildUrl = originalBuildUrl;
                 });
             });
+
+            describe("the byDay function", function() {
+                it('should correctly return an array models for the passed in day', function() {
+                    var model1 = new HourModel({day: 1});
+                    var model2 = new HourModel({day: 2});
+                    var model3 = new HourModel({day: 1});
+                    this.hours.add([model1, model2, model3]);
+                    expect(this.hours.byDay(1).length).to.equal(2);
+                    expect(this.hours.byDay(1).contains(model1)).to.be.true;
+                    expect(this.hours.byDay(1).contains(model3)).to.be.true;
+                    expect(this.hours.byDay(2).length).to.equal(1);
+                    expect(this.hours.byDay(2).contains(model2)).to.be.true;
+                });
+            });
+
         });
     });
 });
