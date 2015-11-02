@@ -58,7 +58,7 @@ define([
 
         // Kicks off the presentation of the app.
         loadApp: function () {
-            this.listenTo(this.appState, 'change:zip', this.fetchForecastData.bind(this));
+            this.listenTo(this.appState, 'change:zip', this.fetchForecastData);
             this.addConditionClass(this.hours.models[0].attributes.condition);
             this.makeViews();
         },
