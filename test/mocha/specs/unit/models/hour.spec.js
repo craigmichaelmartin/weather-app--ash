@@ -10,7 +10,7 @@ define(function(require) {
         });
 
         it("should parse values correctly", function() {
-            var parsed = this.hour.parse(Helpers.Fixtures.hourlyGeo.hourly_forecast[0]);
+            var parsed = HourModel.prototype.parse(Helpers.Fixtures.hourlyGeo.hourly_forecast[0]);
             HourModel.prototype.defaultKeys.forEach(function(key) {
                 expect(parsed[key]).not.to.be.undefined;
             });
