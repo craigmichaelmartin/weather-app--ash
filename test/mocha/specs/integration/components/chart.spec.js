@@ -20,6 +20,14 @@ define(function(require) {
 
             describe('the getHourFromTime function', function() {
 
+                it('should correctly handle midnight', function() {
+                    expect(this.chart.getHourFromTime('12 AM')).to.equal(0);
+                });
+
+                it('should correctly handle noon', function() {
+                    expect(this.chart.getHourFromTime('12 PM')).to.equal(12);
+                });
+
                 it('should correctly handle AM', function() {
                     expect(this.chart.getHourFromTime('1 AM')).to.equal(1);
                 });

@@ -33,7 +33,8 @@ define([
 
         getHourFromTime: function(time) {
             var hour = +time.split(time.slice(-2))[0];
-            return time.indexOf('PM') > -1 ? hour + 12 : hour;
+            var maybeAdded12 = time.indexOf('PM') > -1 ? hour + 12 : hour;
+            return maybeAdded12 % 12 === 0 ? maybeAdded12 - 12 : maybeAdded12;
         },
 
         afterRender: function () {

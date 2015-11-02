@@ -27,10 +27,12 @@ define([
         },
 
         byDay: function (day) {
-            return new Collection(this.filter(function (model) {
+            return new Hours(this.filter(function (model) {
                 return model.get('day') === day;
             }));
-        }
+        },
+
+        comparator: 'hour'
 
     });
 

@@ -32,7 +32,7 @@ define([
         },
 
         showHour: function (model, hour) {
-            this.model = this.hours.findWhere({hour: +hour});
+            this.model = this.hours.findWhere({day: +this.appState.get('day'), hour: +hour});
             this.template = Handlebars.compile(hourTemplate);
             this.render();
         },
