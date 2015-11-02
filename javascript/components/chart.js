@@ -126,6 +126,10 @@ define([
 
             var ratioPercentage = height / width * 110;
             $('.svg-container').css('padding-bottom', ratioPercentage + '%');
+            if ($.isNumeric(this.appState.get('hour'))) {
+                var time = ((this.appState.get('hour') + 11) % 12 + 1) + (this.appState.get('hour') >= 12 ? "PM":"AM");
+                $('.js-hour[data-time="' + time + '"]')[0].setAttribute('class', 'bar js-hour hour is-active')
+            }
         }
     });
 

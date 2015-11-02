@@ -28,6 +28,10 @@ define([
             this.hours = options.hours;
             this.ensureZip();
             this.listenToOnce(this.appState, 'dataReady', this.loadApp.bind(this));
+            this.listenTo(this.appState, 'invalid', this.appStateInvalid);
+            if (!this.appState.isValid()) {
+                this.appState.cleanStart({silent: true});
+            }
             this.fetchForecastData();
         },
 

@@ -28,7 +28,8 @@ define([
 
         loadApp: function(zip, day, hour, scale) {
             var values = this.getValues(zip, day, hour, scale);
-            this.appState.set(values, {silent: true});
+            //this.appState.set(values, {silent: true});
+            this.appState.set(values);
         },
 
         getValues: function(zip, day, hour, scale) {
@@ -38,9 +39,6 @@ define([
                 hour: hour && $.isNumeric(hour) ? +hour : scale && $.isNumeric(scale) ? +scale : void 0,
                 scale: scale ? scale : hour && !$.isNumeric(hour) ? hour : day && !$.isNumeric(day) ? day : 'english'
             };
-            // return _.filter(values, function (val) {
-            //     return val != void 0;
-            // });
             return values;
         },
 
@@ -52,7 +50,7 @@ define([
         getUrl: function() {
             return '' + this.appState.get('zip') +
                    '/' + this.appState.get('day') +
-                   (this.appState.get('hour') ? ('/' + this.appState.get('hour')) : '') +
+                   ($.isNumeric(this.appState.get('hour')) ? ('/' + this.appState.get('hour')) : '') +
                    '/' + this.appState.get('scale');
         }
 

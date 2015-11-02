@@ -13,77 +13,121 @@ define(function(require) {
 
             beforeEach(function() {
                 this.appState = new AppStateModel();
+                this.appState.on('invalid', function(model, error, options) {
+                    this.message = error;
+                }.bind(this));
             });
 
-            describe('the validate function', function() {
+            afterEach(function() {
+                this.appState.off('invalid');
+                this.appState = void 0;
+            });
+
+            describe('invalid inputs', function() {
 
                 describe('for zip values', function() {
 
-                    it('should return an error message for no value', function() {
+                    it('should not be set and contain an error message for no value', function() {
                         expect(this.appState.set({ zip: '' }, {validate: true})).to.be.false;
+                        expect(this.appState.validationError).to.eql([this.appState.zipNotNumeric]);
+                        expect(this.message).to.eql([this.appState.zipNotNumeric]);
                     });
 
-                    it('should return an error message for non-numeric', function() {
+                    it('should not be set and contain an error message for non-numeric', function() {
                         expect(this.appState.set({ zip: '12A65' }, {validate: true})).to.be.false;
+                        expect(this.appState.validationError).to.eql([this.appState.zipNotNumeric]);
+                        expect(this.message).to.eql([this.appState.zipNotNumeric]);
                     });
 
-                    it('should return an error message for invalidly long length', function() {
+                    it('should not be set and contain an error message for invalidly long length', function() {
                         expect(this.appState.set({ zip: 123456 }, {validate: true})).to.be.false;
+                        expect(this.appState.validationError).to.eql([this.appState.zipNotLength]);
+                        expect(this.message).to.eql([this.appState.zipNotLength]);
                     });
 
-                    it('should return an error message for invalidly short length', function() {
+                    it('should not be set and contain an error message for invalidly short length', function() {
                         expect(this.appState.set({ zip: 1234 }, {validate: true})).to.be.false;
+                        expect(this.appState.validationError).to.eql([this.appState.zipNotLength]);
+                        expect(this.message).to.eql([this.appState.zipNotLength]);
                     });
 
-                    it('should return an error message for negative', function() {
+                    it('should not be set and contain an error message for negative', function() {
                         expect(this.appState.set({ zip: -1234 }, {validate: true})).to.be.false;
+                        expect(this.appState.validationError).to.eql([this.appState.zipNotLength]);
+                        expect(this.message).to.eql([this.appState.zipNotLength]);
                     });
 
                 });
 
-            });
-
-            describe('the invalid event', function() {
-
-                describe('for zip values', function() {
+                describe('for day values', function() {
 
                     beforeEach(function() {
-                        this.message;
-                        this.appState.on('invalid', function(model, error, options) {
-                            this.message = error;
-                        }.bind(this));
+                        this.getDate = Date.prototype.getDate;
+                        Date.prototype.getDate = sinon.stub().returns(25);
                     });
 
                     afterEach(function() {
-                        this.appState.off('invalid');
+                        Date.prototype.getDate = this.getDate;
                     });
 
-                    it('should contain an error message for no value', function() {
-                        this.appState.set({ zip: '' }, {validate: true});
-                        expect(this.message).to.equal('zip code must be numeric');
+                    it('should not be set and contain an error message for too far out', function() {
+                        expect(this.appState.set({ zip: 44147, day: 100 }, {validate: true})).to.be.false;
+                        expect(this.appState.validationError).to.eql([AppStateModel.prototype.dayNotNear]);
+                        expect(this.message).to.eql([this.appState.dayNotNear]);
                     });
 
-                    it('should contain an error message for non-numeric', function() {
-                        this.appState.set({ zip: '12A65' }, {validate: true});
-                        expect(this.message).to.equal('zip code must be numeric');
-                    });
-
-                    it('should contain an error message for invalidly long length', function() {
-                        this.appState.set({ zip: 123456 }, {validate: true});
-                        expect(this.message).to.equal('zip code must be five digits');
-                    });
-
-                    it('should contain an error message for invalidly short length', function() {
-                        this.appState.set({ zip: 1234 }, {validate: true});
-                        expect(this.message).to.equal('zip code must be five digits');
-                    });
-
-                    it('should contain an error message for negative', function() {
-                        this.appState.set({ zip: -1234 }, {validate: true});
-                        expect(this.message).to.equal('zip code must be five digits');
+                    it('should not be set and contain an error message for too far out', function() {
+                        expect(this.appState.set({ zip: 44147, day: 15 }, {validate: true})).to.be.false;
+                        expect(this.appState.validationError).to.eql([AppStateModel.prototype.dayNotNear]);
+                        expect(this.message).to.eql([this.appState.dayNotNear]);
                     });
 
                 });
+
+                describe('for hour values', function() {
+
+                    beforeEach(function() {
+                        this.getDate = Date.prototype.getDate;
+                        Date.prototype.getDate = sinon.stub().returns(25);
+                        this.getHours = Date.prototype.getHours;
+                        Date.prototype.getHours = sinon.stub().returns(12);
+                    });
+
+                    afterEach(function() {
+                        Date.prototype.getDate = this.getDate;
+                        Date.prototype.getHours = this.getHours;
+                    });
+
+                    it('should not be set and contain an error message for hour without day', function() {
+                        expect(this.appState.set({ zip: 44147, hour: 13 }, {validate: true})).to.be.false;
+                        expect(this.appState.validationError).to.eql([AppStateModel.prototype.hourNeedsDay]);
+                        expect(this.message).to.eql([this.appState.hourNeedsDay]);
+                    });
+
+                    it('should not be set and contain an error message for invalid', function() {
+                        expect(this.appState.set({ zip: 44147, day: 25, hour: 100 }, {validate: true})).to.be.false;
+                        expect(this.appState.validationError).to.eql([AppStateModel.prototype.hourNotValid]);
+                        expect(this.message).to.eql([this.appState.hourNotValid]);
+                    });
+
+                    it('should not be set and contain an error message for invalid today', function() {
+                        expect(this.appState.set({ zip: 44147, day: 25, hour: 10 }, {validate: true})).to.be.false;
+                        expect(this.appState.validationError).to.eql([AppStateModel.prototype.hourNotValidToday]);
+                        expect(this.message).to.eql([this.appState.hourNotValidToday]);
+                    });
+
+                });
+
+                describe('for scale values', function() {
+
+                    it('should return an error message for invalid scale', function() {
+                        expect(this.appState.set({ zip: 44147, scale: 'kelvin' }, {validate: true})).to.be.false;
+                        expect(this.appState.validationError).to.eql([AppStateModel.prototype.scaleNotValid]);
+                        expect(this.message).to.eql([this.appState.scaleNotValid]);
+                    });
+
+                });
+
             });
         });
     });
