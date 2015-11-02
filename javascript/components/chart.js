@@ -12,7 +12,7 @@ define([
         template: Handlebars.compile(template),
 
         events: {
-            'click .bar': 'hourClicked'
+            'click .svg-container': 'hourClicked' //must listen on the svg element
         },
 
         initialize: function (options) {
@@ -27,7 +27,10 @@ define([
         },
 
         hourClicked: function (e) {
-            var time = $(e.currentTarget).data('time');
+            // listening on the svg element so must use e.target
+            $('.hour.is-active').attr("class", "bar js-hour hour");
+            e.target.setAttribute('class', 'bar js-hour hour is-active')
+            var time = $(e.target).data('time');
             this.appState.set('hour', this.getHourFromTime(time));
         },
 
@@ -83,7 +86,7 @@ define([
             svg.selectAll(".bar")
                 .data(data)
               .enter().append("rect")
-                .attr("class", "bar")
+                .attr("class", "bar js-hour hour")
                 .attr("x", function (d, i) {
                     return i * (width / data.length);
                 })
@@ -100,6 +103,7 @@ define([
                 .data(data)
                 .enter()
                 .append("text")
+                .attr("class", "js-hourTemperature")
                 .attr("x", function (d, i) {
                     return ((i * width/data.length) + (width/data.length/2) - 3);
                 })
