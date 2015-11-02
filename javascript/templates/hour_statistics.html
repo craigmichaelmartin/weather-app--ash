@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 statistics-header">
         {{weekday}}, {{#if english}}{{monthname}} {{day}}{{else}}{{day}} {{monthname}}{{/if}} at {{civil}}
     </div>
 </div>
@@ -16,7 +16,7 @@
         Temperature
     </div>
     <div class="col-sm-6">
-        {{#if english}}{{temperatureEnglish}}&deg;F{{else}}{{temperatureMetric}}&deg;C{{/if}}
+        <span class="js-hourStatisticsTemperature">{{#if english}}{{temperatureEnglish}}&deg;F{{else}}{{temperatureMetric}}&deg;C{{/if}}</span>
     </div>
 </div>
 <div class="row">
