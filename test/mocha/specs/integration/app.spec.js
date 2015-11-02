@@ -44,10 +44,6 @@ define(function(require) {
                 this.server.restore();
             });
 
-            //it('should have current el', function() {
-            //    expect(this.app.$el.selector).to.equal('.js-weatherApp');
-            //});
-
             it("should have made the correct requests", function() {
                 expect(this.server.requests.length).to.equal(2);
                 expect(this.server.requests[0].method).to.equal("GET");
