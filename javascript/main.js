@@ -11,6 +11,7 @@ require([
         'collections/days',
         'collections/hours',
         'backbone',
+        'es5shim',
         'bootstrap'
     ], function (AppView, AppRouter, AppState, Days, Hours, Backbone) {
 
