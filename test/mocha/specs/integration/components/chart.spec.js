@@ -47,25 +47,19 @@ define(function(require) {
 
                     it('should correctly respond to dataReady', function() {
                         this.appState.trigger('dataReady');
-                        // useing called twice because initialize calls it once
+                        // using called twice because initialize calls it once
                         expect(this.chart.render.calledTwice).to.be.true;
                     });
 
                     it('should correctly respond to changing day', function() {
                         this.appState.trigger('change:day');
-                        // useing called twice because initialize calls it once
-                        expect(this.chart.render.calledTwice).to.be.true;
-                    });
-
-                    it('should correctly respond to changing hour', function() {
-                        this.appState.trigger('change:hour');
-                        // useing called twice because initialize calls it once
+                        // using called twice because initialize calls it once
                         expect(this.chart.render.calledTwice).to.be.true;
                     });
 
                     it('should correctly respond to changing scale', function() {
                         this.appState.trigger('change:scale');
-                        // useing called twice because initialize calls it once
+                        // using called twice because initialize calls it once
                         expect(this.chart.render.calledTwice).to.be.true;
                     });
 

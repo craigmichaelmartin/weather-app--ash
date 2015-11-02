@@ -21,7 +21,6 @@ define([
             this.hours = options.hours;
             this.listenTo(this.appState, 'dataReady', this.render);
             this.listenTo(this.appState, 'change:day', this.render);
-            this.listenTo(this.appState, 'change:hour', this.render);
             this.listenTo(this.appState, 'change:scale', this.render);
             this.render();
         },
