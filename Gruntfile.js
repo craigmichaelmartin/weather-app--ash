@@ -189,6 +189,7 @@ module.exports = function (grunt) {
                     'karma-sinon-chai'
                 ],
                 files: [
+                    'components/es5-shim/es5-shim.js',
                     'components/underscore/underscore.js',
                     'components/sinonjs/sinon.js',
                     'components/sinon-chai/lib/sinon-chai.js',
