@@ -35,7 +35,7 @@ define([
         getValues: function(zip, day, hour, scale) {
             var values = {
                 zip: +zip,
-                day: +day || new Date().getUTCDate(),
+                day: +day || new Date().getDate(),
                 hour: hour && $.isNumeric(hour) ? +hour : scale && $.isNumeric(scale) ? +scale : void 0,
                 scale: scale ? scale : hour && !$.isNumeric(hour) ? hour : day && !$.isNumeric(day) ? day : 'english'
             };
