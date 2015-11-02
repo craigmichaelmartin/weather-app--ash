@@ -8,6 +8,8 @@ define([
     'text!templates/app.html',
     'handlebars',
     'jquery',
+    'backbone',
+    'bootstrap',
     'es5shim'
 ], function (View, ScaleView, MenuView, DaysView, StatisticsView, ChartView,
             template, Handlebars) {
