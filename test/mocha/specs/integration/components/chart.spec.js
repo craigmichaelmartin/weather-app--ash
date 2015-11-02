@@ -14,8 +14,12 @@ define(function(require) {
 
             beforeEach(function() {
                 this.appState = new AppStateModel();
-                ChartView.prototype.render = sinon.stub().returns(this);
+                sinon.stub(ChartView.prototype, 'render');
                 this.chart = new ChartView({appState: this.appState});
+            });
+
+            afterEach(function() {
+                ChartView.prototype.render.restore();
             });
 
             describe('the getHourFromTime function', function() {

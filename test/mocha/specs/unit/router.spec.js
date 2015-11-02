@@ -94,12 +94,12 @@ define(function(require) {
             describe('with zip and scale', function() {
 
                 beforeEach(function() {
-                    this.getUTCDate = Date.prototype.getUTCDate;
-                    Date.prototype.getUTCDate = sinon.stub().returns('stub-day');
+                    this.getDate = Date.prototype.getDate;
+                    Date.prototype.getDate = sinon.stub().returns('stub-day');
                 });
 
                 afterEach(function() {
-                    Date.prototype.getUTCDate = this.getUTCDate;
+                    Date.prototype.getDate = this.getDate;
                 });
                 
                 it('called normally', function() {

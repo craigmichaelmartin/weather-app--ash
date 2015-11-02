@@ -12,14 +12,20 @@ define(function(require) {
 
         describe('after being initialized', function() {
 
-            beforeEach(function() {
-                this.appState = new AppStateModel();
-                MenuView.prototype.render = sinon.stub().returns(this);
-                MenuView.prototype.flagInvalidZip = sinon.stub().returns(this);
-                this.menu = new MenuView({appState: this.appState});
-            });
-
             describe('the event listeners', function() {
+
+                beforeEach(function() {
+                    this.appState = new AppStateModel();
+                    sinon.stub(MenuView.prototype, 'render');
+                    sinon.stub(MenuView.prototype, 'flagInvalidZip');
+                    this.menu = new MenuView({appState: this.appState});
+                });
+
+                afterEach(function() {
+                    MenuView.prototype.render.restore();
+                    MenuView.prototype.flagInvalidZip.restore();
+
+                });
 
                 describe('for appState model', function() {
 

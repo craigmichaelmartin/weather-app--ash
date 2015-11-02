@@ -11,10 +11,6 @@ define(function(require) {
 
         describe('after being initialized', function() {
 
-            beforeEach(function() {
-                ChartView.prototype.render = sinon.stub().returns(this);
-            });
-
             describe('the getHourFromTime function', function() {
 
                 it('should correctly handle AM', function() {

@@ -18,6 +18,7 @@ define(function(require) {
         describe('after being initialized', function() {
 
             beforeEach(function() {
+                sinon.stub(Date.prototype, 'getDate').returns(25);
                 this.server = sinon.fakeServer.create();
                 this.server.respondWith(
                     "GET",
@@ -39,6 +40,7 @@ define(function(require) {
             });
 
             afterEach(function() {
+                Date.prototype.getDate.restore();
                 this.server.restore();
             });
 

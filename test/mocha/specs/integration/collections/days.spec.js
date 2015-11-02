@@ -46,12 +46,11 @@ define(function(require) {
             describe("the fetch function", function() {
                 beforeEach(function() {
                     this.BaseCollection = require('collections/collection');
-                    this.originalFetch = this.BaseCollection.prototype.fetch;
-                    this.BaseCollection.prototype.fetch = sinon.spy();
+                    sinon.stub(this.BaseCollection.prototype, 'fetch');
                 });
 
                 afterEach(function() {
-                    this.BaseCollection.prototype.fetch = this.originalFetch;
+                    this.BaseCollection.prototype.fetch.restore();
                 });
 
                 it('should attempt to hit the server via base collection', function() {
@@ -60,14 +59,13 @@ define(function(require) {
                 });
 
                 it('should place passed in url option in super the super call options', function() {
-                    var originalBuildUrl = this.days.buildUrl;
-                    this.days.buildUrl = sinon.stub().returns('testing-url-44024');
+                    sinon.stub(this.days, 'buildUrl').returns('testing-url-44024');
                     this.days.fetch({zip: 44024});
                     // using calledWith isn't working (maybe due to options being an object)
                     // so instead will dig into what it was called with manually
                     // expect(this.BaseCollection.prototype.fetch.calledWith({url: 'testing-url-44024'})).to.be.true;
                     expect(this.BaseCollection.prototype.fetch.args[0][0].url == 'testing-url-44024').to.be.true;
-                    this.days.buildUrl = originalBuildUrl;
+                    this.days.buildUrl.restore();
                 });
             });
 
