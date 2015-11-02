@@ -78,6 +78,12 @@ define([
             return 'is-cloudy';
         },
 
+        appStateInvalid: function(model, errors, options) {
+            var message = 'The data provided was invalid. ' + errors.join('. ') + '.<br>PRO TIP: Valid URL path is <code>/:zip/:day/:hour/:scale</code>, <code>/:zip/:day/:scale</code>, <code>/:zip/:day</code>, <code>/:zip/:scale</code>, <code>/:zip</code>, and <code>/</code>.';
+            $('.js-alertText').html(message);
+            $('.js-alert').show();
+        },
+
         // Kicks off the views that comprise the app.
         makeViews: function() {
             this.scaleView = new ScaleView({
