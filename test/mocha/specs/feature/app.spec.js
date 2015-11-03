@@ -98,10 +98,10 @@ define(function(require) {
 
             });
 
-            describe('clicking on an hour', function() {
+            describe('clicking on an hour bar', function() {
 
                 beforeEach(function() {
-                    this.$clickedHour = $('.js-hour').last().click();
+                    this.$clickedHour = $('.js-hourBar').last().click();
                 });
 
                 it('should update the app state model', function() {
@@ -113,7 +113,67 @@ define(function(require) {
                 });
 
                 it('should result in only one active class', function() {
-                    expect($('.hour.is-active').length).to.equal(1);
+                    expect($('.hourBar.is-active').length).to.equal(1);
+                });
+
+                it('should update the sidebar with the hours\'s statistics', function() {
+                    var hoursCollection = this.app.hours.byDay(this.app.appState.get('day'));
+                    var hourModel = hoursCollection.findWhere({hour: this.app.appState.get('hour')});
+                    var statsHourText = $('.js-statistics').children().first().text().trim();
+                    var expected = hourModel.get('weekday') + ', ' + hourModel.get('monthname') + ' ' + hourModel.get('day') + ' at ' + hourModel.get('civil');
+                    expect(expected).to.equal(statsHourText);
+                });
+
+            });
+
+            describe('clicking on an hour\'s time text', function() {
+
+                beforeEach(function() {
+                    this.$clickedHourText = $('.js-hourTime').last().click();
+                });
+
+                it('should update the app state model', function() {
+                    expect(this.app.appState.get('hour')).to.equal(23);
+                });
+
+                it('should add the active class to it\'s bar', function() {
+                    var time = this.$clickedHourText.data('time');
+                    var el = $("[data-time='" + time +"']")[0];
+                    expect(el.className.animVal.indexOf('is-active') >= 0).to.be.true;
+                });
+
+                it('should result in only one active class', function() {
+                    expect($('.hourBar.is-active').length).to.equal(1);
+                });
+
+                it('should update the sidebar with the hours\'s statistics', function() {
+                    var hoursCollection = this.app.hours.byDay(this.app.appState.get('day'));
+                    var hourModel = hoursCollection.findWhere({hour: this.app.appState.get('hour')});
+                    var statsHourText = $('.js-statistics').children().first().text().trim();
+                    var expected = hourModel.get('weekday') + ', ' + hourModel.get('monthname') + ' ' + hourModel.get('day') + ' at ' + hourModel.get('civil');
+                    expect(expected).to.equal(statsHourText);
+                });
+
+            });
+
+            describe('clicking on an hour\'s temperature text', function() {
+
+                beforeEach(function() {
+                    this.$clickedHourText = $('.js-hourTemperature').last().click();
+                });
+
+                it('should update the app state model', function() {
+                    expect(this.app.appState.get('hour')).to.equal(23);
+                });
+
+                it('should add the active class to it\'s bar', function() {
+                    var time = this.$clickedHourText.data('time');
+                    var el = $("[data-time='" + time +"']")[0];
+                    expect(el.className.animVal.indexOf('is-active') >= 0).to.be.true;
+                });
+
+                it('should result in only one active class', function() {
+                    expect($('.hourBar.is-active').length).to.equal(1);
                 });
 
                 it('should update the sidebar with the hours\'s statistics', function() {
@@ -160,7 +220,7 @@ define(function(require) {
                 });
 
                 it('should change the hour statistics temperatures to metric', function() {
-                    $('.js-hour').first().click();
+                    $('.js-hourBar').first().click();
                     var test = $('.js-hourStatisticsTemperature').text();
                     var actual = this.app.hours.byDay(this.app.appState.get('day')).models[0].get('temperatureMetric') + '°C'
                     expect(test).to.equal(actual);

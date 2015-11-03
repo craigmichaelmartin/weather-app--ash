@@ -12,7 +12,8 @@ define([
         template: Handlebars.compile(template),
 
         events: {
-            'click .svg-container': 'hourClicked' //must listen on the svg element
+            'click .js-hourBar': 'hourClicked',
+            'click .js-hourText': 'hourTextClicked'
         },
 
         initialize: function (options) {
@@ -26,11 +27,21 @@ define([
         },
 
         hourClicked: function (e) {
-            // listening on the svg element so must use e.target
-            $('.hour.is-active').attr("class", "bar js-hour hour");
-            e.target.setAttribute('class', 'bar js-hour hour is-active')
-            var time = $(e.target).data('time');
-            this.appState.set('hour', this.getHourFromTime(time));
+            var time = $(e.currentTarget).data('time');
+            var el = e.currentTarget;
+            return this.makeHourActive(time, el);
+        },
+
+        hourTextClicked: function (e) {
+            var time = $(e.currentTarget).data('time');
+            var el = $("[data-time='" + time +"']")[0];
+            return this.makeHourActive(time, el);
+        },
+
+        makeHourActive: function(time, el) {
+            $('.hourBar.is-active').attr("class", "js-hourBar hourBar");
+            el.setAttribute('class', 'js-hourBar hourBar is-active');
+            return this.appState.set('hour', this.getHourFromTime(time));
         },
 
         getHourFromTime: function(time) {
@@ -82,10 +93,10 @@ define([
             x.domain(data.map(getTime));
             y.domain([0, d3.max(data, getTemp)]);
 
-            svg.selectAll(".bar")
+            svg.selectAll()
                 .data(data)
               .enter().append("rect")
-                .attr("class", "bar js-hour hour")
+                .attr("class", "js-hourBar hourBar")
                 .attr("x", function (d, i) {
                     return i * (width / data.length);
                 })
@@ -102,13 +113,14 @@ define([
                 .data(data)
                 .enter()
                 .append("text")
-                .attr("class", "js-hourTemperature")
+                .attr("class", "hourText js-hourTemperature js-hourText")
                 .attr("x", function (d, i) {
                     return ((i * width/data.length) + (width/data.length/2) - 3);
                 })
                 .attr("y", function (d, i) {
                     return y(d.temp) + 25;
                 })
+                .attr("data-time", getTime)
                 .text(function (d) {
                     return d.temp + '°';
                 });
@@ -117,6 +129,7 @@ define([
                 .data(data)
                 .enter()
                 .append("text")
+                .attr("class", "hourText js-hourTime js-hourText")
                 .attr("font-family", "sans-serif")
                 .attr("font-size", "16px")
                 .attr("x", function (d, i) {
@@ -125,13 +138,14 @@ define([
                 .attr("y", function (d, i) {
                     return y(d.temp) + 50;
                 })
+                .attr("data-time", getTime)
                 .text(getTime);
 
             var ratioPercentage = height / width * 110;
             $('.svg-container').css('padding-bottom', ratioPercentage + '%');
             if ($.isNumeric(this.appState.get('hour'))) {
                 var time = ((this.appState.get('hour') + 11) % 12 + 1) + (this.appState.get('hour') >= 12 ? "PM":"AM");
-                $('.js-hour[data-time="' + time + '"]')[0].setAttribute('class', 'bar js-hour hour is-active')
+                $('.js-hourBar[data-time="' + time + '"]')[0].setAttribute('class', 'js-hourBar hourBar is-active')
             }
         }
     });
