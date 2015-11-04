@@ -15,8 +15,8 @@ define(function(require) {
         describe('after being initialized', function() {
 
             beforeEach(function() {
-                this.getDate = Date.prototype.getDate;
-                Date.prototype.getDate = sinon.stub().returns(25);
+                sinon.stub(Date.prototype, 'getDate').returns(25);
+                sinon.stub(Date.prototype, 'getHours').returns(12);
                 this.server = sinon.fakeServer.create();
                 this.server.respondWith(
                     "GET",
@@ -43,7 +43,8 @@ define(function(require) {
             });
 
             afterEach(function() {
-                Date.prototype.getDate = this.getDate;
+                Date.prototype.getDate.restore();
+                Date.prototype.getHours.restore();
                 this.server.restore();
             });
             
@@ -265,15 +266,6 @@ define(function(require) {
 
                 describe('for day input', function() {
 
-                    beforeEach(function() {
-                        this.getDate = Date.prototype.getDate;
-                        Date.prototype.getDate = sinon.stub().returns(25);
-                    });
-
-                    afterEach(function() {
-                        Date.prototype.getDate = this.getDate;
-                    });
-
                     it('should indicate day is too far out', function() {
                         expect(this.app.appState.set({ zip: 44147, day: 100 }, {validate: true})).to.be.false;
                         expect($('.js-alertText').text().indexOf(this.app.appState.dayNotNear)).to.be.above(-1);
@@ -287,18 +279,6 @@ define(function(require) {
                 });
 
                 describe('for hour input', function() {
-
-                    beforeEach(function() {
-                        this.getDate = Date.prototype.getDate;
-                        Date.prototype.getDate = sinon.stub().returns(25);
-                        this.getHours = Date.prototype.getHours;
-                        Date.prototype.getHours = sinon.stub().returns(12);
-                    });
-
-                    afterEach(function() {
-                        Date.prototype.getDate = this.getDate;
-                        Date.prototype.getHours = this.getHours;
-                    });
 
                     it('should indicate cannot have hour without day', function() {
                         expect(this.app.appState.set({ zip: 44147, day: void 0, hour: 13 }, {validate: true})).to.be.false;
