@@ -181,13 +181,21 @@ module.exports = function (grunt) {
             options: {
                 basePath: process.cwd(),
                 frameworks: ['mocha', 'sinon-chai'],
+                reporters: ['dots', 'coverage'],
                 plugins: [
                     'karma-mocha',
                     'karma-phantomjs-launcher',
                     'karma-firefox-launcher',
                     'karma-chrome-launcher',
-                    'karma-sinon-chai'
+                    'karma-sinon-chai',
+                    'karma-coverage'
                 ],
+                preprocessors: {
+                    'javascript/**/*.js': ['coverage']
+                },
+                coverageReporter: {
+                    type : 'text'
+                },
                 files: [
                     'components/es5-shim/es5-shim.js',
                     'components/underscore/underscore.js',
