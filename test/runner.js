@@ -26,24 +26,29 @@
     });
 
     require([
-        "require-config",
-        "../test/mocha/helpers",
-        "underscore"
-    ], function(config, Helpers) {
-        window.Helpers = Helpers;
-        var specs = _.chain(karma.files)
-        // Convert the files object to an array of file paths.
-        .map(function(id, file) {
-            return file;
-        })
-        // Tests that end with `.spec.js` and exist in `test` or
-        // `javascript` directories are automatically loaded.
-        .filter(function(file) {
-            return (/(javascript|test)\/.*\.spec\.js$/).test(file);
-        })
-        .value();
+        "require-config"
+    ], function() {
 
-        // Load all specs and start Karma.
-        require(specs, karma.start);
+        require([
+            "../test/mocha/helpers",
+            "underscore"
+        ], function(Helpers) {
+
+            window.Helpers = Helpers;
+            var specs = _.chain(karma.files)
+            // Convert the files object to an array of file paths.
+            .map(function(id, file) {
+                return file;
+            })
+            // Tests that end with `.spec.js` and exist in `test` or
+            // `javascript` directories are automatically loaded.
+            .filter(function(file) {
+                return (/(javascript|test)\/.*\.spec\.js$/).test(file);
+            })
+            .value();
+
+            // Load all specs and start Karma.
+            require(specs, karma.start);
+        });
     });
 })(this);
