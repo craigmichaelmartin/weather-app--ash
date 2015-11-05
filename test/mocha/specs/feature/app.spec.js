@@ -1,44 +1,15 @@
 define(function(require) {
     'use strict';
 
-    var App = require('app');
-    var AppState = require('models/app');
-    var DaysCollection = require('collections/days');
-    var HoursCollection = require('collections/hours');
-
     describe('App', function() {
-
-        it('should be defined', function() {
-            expect(App).not.to.be.undefined;
-        });
 
         describe('after being initialized', function() {
 
             beforeEach(function() {
                 sinon.stub(Date.prototype, 'getDate').returns(25);
                 sinon.stub(Date.prototype, 'getHours').returns(12);
-                this.server = sinon.fakeServer.create();
-                this.server.respondWith(
-                    "GET",
-                    /api\.wunderground\.com\/api\/3f6df2a3f0916b99\/.*forecast10day\/q/,
-                    Helpers.validResponse(Helpers.Fixtures.dailyGeo)
-                );
-                this.server.respondWith(
-                    "GET",
-                    /api\.wunderground\.com\/api\/3f6df2a3f0916b99\/hourly10day\/q/,
-                    Helpers.validResponse(Helpers.Fixtures.hourlyGeo)
-                );
-                this.app = new App({
-                    hours: new HoursCollection(),
-                    days: new DaysCollection(),
-                    appState: new AppState({
-                        zip: undefined,
-                        day: 25,
-                        hour: undefined,
-                        scale: "english"
-                    }),
-                    el: $('body')
-                });
+                this.server = Helpers.createServer();
+                this.app = Helpers.createApp();
                 this.server.respond();
             });
 

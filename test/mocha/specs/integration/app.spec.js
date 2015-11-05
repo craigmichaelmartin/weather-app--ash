@@ -1,41 +1,14 @@
 define(function(require) {
     'use strict';
 
-    var App = require('app');
-    var AppState = require('models/app');
-    var Backbone = require('backbone');
-    var DaysCollection = require('collections/days');
-    var HoursCollection = require('collections/hours');
-
-    var should = chai.should();
-
     describe('App', function() {
-
-        it('should be defined', function() {
-            expect(App).not.to.be.undefined;
-        });
 
         describe('after being initialized', function() {
 
             beforeEach(function() {
                 sinon.stub(Date.prototype, 'getDate').returns(25);
-                this.server = sinon.fakeServer.create();
-                this.server.respondWith(
-                    "GET",
-                    "http://api.wunderground.com/api/3f6df2a3f0916b99/geolookup/forecast10day/q/autoip.json",
-                    Helpers.validResponse(Helpers.Fixtures.dailyGeo)
-                );
-                this.server.respondWith(
-                    "GET",
-                    "http://api.wunderground.com/api/3f6df2a3f0916b99/hourly10day/q/autoip.json",
-                    Helpers.validResponse(Helpers.Fixtures.hourlyGeo)
-                );
-                this.app = new App({
-                    hours: new HoursCollection(),
-                    days: new DaysCollection(),
-                    appState: new AppState(),
-                    el: $('body')
-                });
+                this.server = Helpers.createServer();
+                this.app = Helpers.createApp();
                 this.server.respond();
             });
 
