@@ -1,6 +1,9 @@
 define([
-    'backbone'
-], function (Backbone) {
+    'backbone',
+    'jquery'
+], function (Backbone, $) {
+
+    'use strict';
 
     var InsightRouter = Backbone.Router.extend({
 
@@ -26,13 +29,13 @@ define([
             this.appState.on('change', this.updatePeripheralsWithState.bind(this));
         },
 
-        loadApp: function(zip, day, hour, scale) {
+        loadApp: function (zip, day, hour, scale) {
             var values = this.getValues(zip, day, hour, scale);
             //this.appState.set(values, {silent: true});
             this.appState.set(values);
         },
 
-        getValues: function(zip, day, hour, scale) {
+        getValues: function (zip, day, hour, scale) {
             var values = {
                 zip: +zip,
                 day: +day || new Date().getDate(),
@@ -42,12 +45,12 @@ define([
             return values;
         },
 
-        updatePeripheralsWithState: function() {
+        updatePeripheralsWithState: function () {
             this.navigate(this.getUrl());
-            document.title = 'Weather for ' + this.appState.get('zip') + ' on ' + this.appState.get('day')
+            document.title = 'Weather for ' + this.appState.get('zip') + ' on ' + this.appState.get('day');
         },
 
-        getUrl: function() {
+        getUrl: function () {
             return '' + this.appState.get('zip') +
                    '/' + this.appState.get('day') +
                    ($.isNumeric(this.appState.get('hour')) ? ('/' + this.appState.get('hour')) : '') +

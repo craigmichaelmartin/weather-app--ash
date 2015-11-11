@@ -2,8 +2,9 @@ define([
     'views/view',
     'text!templates/day_statistics.html',
     'text!templates/hour_statistics.html',
-    'handlebarsHelpers'
-], function (View, dayTemplate, hourTemplate, Handlebars) {
+    'handlebarsHelpers',
+    'underscore'
+], function (View, dayTemplate, hourTemplate, Handlebars, _) {
 
     'use strict';
 

@@ -6,7 +6,7 @@
     cursor: pointer;
 }
 .hourBar.is-active {
-    fill: rgb(87, 183, 223);
+    fill: @primary;
 }
 
 .hourText {
@@ -14,12 +14,13 @@
 }
 
 .d3Chart rect {
-    fill: rgba(255, 255, 255, 0.75);
+    fill: @secondary;
+    fill: @secondary--transparent;
     shape-rendering: crispEdges;
 }
 
 .d3Chart text {
-    fill: rgb(60, 60, 60);
+    fill: @font-color;
     text-shadow: .1em .1em .5em white;
     font: 12px sans-serif;
     text-anchor: middle;

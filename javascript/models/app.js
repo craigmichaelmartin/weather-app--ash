@@ -1,12 +1,13 @@
 define([
-    'models/model'
-], function (Model) {
+    'models/model',
+    'underscore'
+], function (Model, _) {
 
     'use strict';
 
     var AppState = Model.extend({
 
-        cleanStart: function(options) {
+        cleanStart: function (options) {
             this.set({
                 zip: void 0,
                 day: new Date().getDate(),
@@ -26,17 +27,16 @@ define([
         get scaleNotValid() {
             var scales = this.scales.join(', ');
             var lastComma = scales.lastIndexOf(',');
-            var readable = scales.substring(0, lastComma) + ' or' + scales.substring(lastComma+1);
+            var readable = scales.substring(0, lastComma) + ' or' + scales.substring(lastComma + 1);
             return 'Scale must be ' + readable;
         },
 
-        validate: function(attrs, options) {
+        validate: function (attrs, options) {
             var errors = [];
             var now = new Date();
             if (!_.isNumber(attrs.zip) || _.isNaN(attrs.zip)) {
                 errors.push(this.zipNotNumeric);
-            }
-            else if ((attrs.zip < 0) || (attrs.zip.toString().length !== 5)) {
+            } else if ((attrs.zip < 0) || (attrs.zip.toString().length !== 5)) {
                 errors.push(this.zipNotLength);
             }
             if (attrs.day) {
@@ -55,8 +55,7 @@ define([
                 var validHours = _.range(24); //Array.apply(null, {length: 24}).map(Number.call, Number);
                 if (validHours.indexOf(attrs.hour) === -1) {
                     errors.push(this.hourNotValid);
-                }
-                else if (attrs.day === now.getDate()) {
+                } else if (attrs.day === now.getDate()) {
                     if (validHours.slice(now.getHours()).indexOf(attrs.hour) === -1) {
                         errors.push(this.hourNotValidToday);
                     }
@@ -68,7 +67,7 @@ define([
                 }
             }
             return errors.length ? errors : void 0;
-        },
+        }
     });
 
     return AppState;

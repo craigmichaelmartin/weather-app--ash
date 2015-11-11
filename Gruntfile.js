@@ -238,6 +238,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('dist-css', ['less', 'autoprefixer', 'csscomb', 'csslint', 'cssmin']);
     grunt.registerTask('dist', ['clean', 'dist-css', 'requirejs']);
+    grunt.registerTask('tests', ['csscomb', 'csslint', 'jscs', 'jshint', 'karma:integration']);
     grunt.registerTask('runserver:dev', ['connect:dev']);
     grunt.registerTask('runserver', ['connect:prod']);
     grunt.registerTask('default', ['dist']);

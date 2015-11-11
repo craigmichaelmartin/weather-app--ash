@@ -4,14 +4,17 @@
     float: left;
     padding-left: 15px;
     padding-right: 15px;
-    text-shadow: rgba(0,0,0,0.8) 0 0 3px;
+    text-shadow: @font-shadow-dark 0 0 3px;
+    text-shadow: @font-shadow-dark--transparent 0 0 3px;
     color: white;
     font-size: 1.3em;
 }
 .day.is-active {
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.75);
-    box-shadow: rgba(128, 128, 128, 0.44) 1px 1px 10px;
+    background-color: @secondary;
+    background-color: @secondary--transparent;
+    box-shadow: @box-shadow 1px 1px 10px;
+    box-shadow: @box-shadow--transparent 1px 1px 10px;
 }
 .day-label {
     text-align: center;

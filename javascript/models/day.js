@@ -14,9 +14,9 @@ define([
             'percipitationEnglish', 'percipitationMetric'
         ],
 
-        defaults: function() {
+        defaults: function () {
             var defaults = {};
-            this.defaultKeys.forEach(function(key) {
+            this.defaultKeys.forEach(function (key) {
                 defaults[key] = undefined;
             });
             return defaults;
@@ -27,6 +27,7 @@ define([
         },
 
         parse: function (results) {
+            // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
             return {
                 condition: results.conditions,
                 iconUrl: results.icon_url,
@@ -48,6 +49,7 @@ define([
                 percipitationEnglish: results.qpf_allday.in,
                 percipitationMetric: results.qpf_allday.mm
             };
+            // jscs:enabled requireCamelCaseOrUpperCaseIdentifiers
         }
 
     });

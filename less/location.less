@@ -11,7 +11,8 @@
     padding-bottom: 0.3em;
 }
 .zip-pencil {
-    color: rgba(255,255,255,0.75);
+    color: @secondary;
+    color: @secondary--transparent;
     font-size: .5em;
     vertical-align: middle;
     display: inline-block;
@@ -31,11 +32,12 @@
     padding-left: .5em;
 }
 .zip-edit.is-invalid {
-    border: 1px solid red;
+    border: 1px solid @invalid;
 }
 .conditions {
     margin-top: -.2em;
     color: white;
     font-size: 1.5em;
-    text-shadow: .1em .1em .5em #373232;
+    text-shadow: .1em .1em 1em @font-shadow-dark;
+    text-shadow: .1em .1em 1em @font-shadow-dark--transparent;
 }

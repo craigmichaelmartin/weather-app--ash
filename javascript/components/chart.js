@@ -2,8 +2,9 @@ define([
     'views/view',
     'text!templates/chart.html',
     'handlebarsHelpers',
-    'd3'
-], function (View, template, Handlebars, d3) {
+    'd3',
+    'jquery'
+], function (View, template, Handlebars, d3, $) {
 
     'use strict';
 
@@ -34,17 +35,17 @@ define([
 
         hourTextClicked: function (e) {
             var time = $(e.currentTarget).data('time');
-            var el = $("[data-time='" + time +"']")[0];
+            var el = $('[data-time=\'' + time + '\']')[0];
             return this.makeHourActive(time, el);
         },
 
-        makeHourActive: function(time, el) {
-            $('.hourBar.is-active').attr("class", "js-hourBar hourBar");
+        makeHourActive: function (time, el) {
+            $('.hourBar.is-active').attr('class', 'js-hourBar hourBar');
             el.setAttribute('class', 'js-hourBar hourBar is-active');
             return this.appState.set('hour', this.getHourFromTime(time));
         },
 
-        getHourFromTime: function(time) {
+        getHourFromTime: function (time) {
             var hour = +time.split(time.slice(-2))[0];
             var maybeAdded12 = time.indexOf('PM') > -1 ? hour + 12 : hour;
             return maybeAdded12 % 12 === 0 ? maybeAdded12 - 12 : maybeAdded12;
@@ -66,19 +67,19 @@ define([
             var y = d3.scale.linear()
                 .range([height, 0]);
 
-            var svg = d3.select(".js-d3Chart")
-                .append("div")
-                .classed("svg-container", true)
-                .append("svg")
-                .attr("preserveAspectRatio", "xMinYMin meet")
-                .attr("viewBox", "0 0 " + (width + margin.left + margin.right) + " " + (height + margin.upper + margin.bottom))
-                .classed("svg-content-responsive", true)
-              .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.upper + ")");
+            var svg = d3.select('.js-d3Chart')
+                .append('div')
+                .classed('svg-container', true)
+                .append('svg')
+                .attr('preserveAspectRatio', 'xMinYMin meet')
+                .attr('viewBox', '0 0 ' + (width + margin.left + margin.right) + ' ' + (height + margin.upper + margin.bottom))
+                .classed('svg-content-responsive', true)
+              .append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.upper + ')');
 
             var data = this.hours.byDay(this.appState.get('day')).map((function (model) {
                 return {
-                    temp: this.appState.get('scale') === "english" ? model.get('temperatureEnglish') : model.get('temperatureMetric'),
+                    temp: this.appState.get('scale') === 'english' ? model.get('temperatureEnglish') : model.get('temperatureMetric'),
                     time: model.get('civil').split(':')[0] + model.get('civil').slice(-2)
                 };
             }).bind(this));
@@ -95,32 +96,32 @@ define([
 
             svg.selectAll()
                 .data(data)
-              .enter().append("rect")
-                .attr("class", "js-hourBar hourBar")
-                .attr("x", function (d, i) {
+              .enter().append('rect')
+                .attr('class', 'js-hourBar hourBar')
+                .attr('x', function (d, i) {
                     return i * (width / data.length);
                 })
-                .attr("width", x.rangeBand())
-                .attr("y", function (d) {
+                .attr('width', x.rangeBand())
+                .attr('y', function (d) {
                     return y(d.temp);
                 })
-                .attr("height", function (d) {
+                .attr('height', function (d) {
                     return height - y(d.temp);
                 })
-                .attr("data-time", getTime);
+                .attr('data-time', getTime);
 
             svg.selectAll()
                 .data(data)
                 .enter()
-                .append("text")
-                .attr("class", "hourText js-hourTemperature js-hourText")
-                .attr("x", function (d, i) {
-                    return ((i * width/data.length) + (width/data.length/2) - 3);
+                .append('text')
+                .attr('class', 'hourText js-hourTemperature js-hourText')
+                .attr('x', function (d, i) {
+                    return ((i * width / data.length) + (width / data.length / 2) - 3);
                 })
-                .attr("y", function (d, i) {
+                .attr('y', function (d, i) {
                     return y(d.temp) + 25;
                 })
-                .attr("data-time", getTime)
+                .attr('data-time', getTime)
                 .text(function (d) {
                     return d.temp + '°';
                 });
@@ -128,24 +129,24 @@ define([
             svg.selectAll()
                 .data(data)
                 .enter()
-                .append("text")
-                .attr("class", "hourText js-hourTime js-hourText")
-                .attr("font-family", "sans-serif")
-                .attr("font-size", "16px")
-                .attr("x", function (d, i) {
-                    return ((i * width/data.length) + (width/data.length/2) - 3);
+                .append('text')
+                .attr('class', 'hourText js-hourTime js-hourText')
+                .attr('font-family', 'sans-serif')
+                .attr('font-size', '16px')
+                .attr('x', function (d, i) {
+                    return ((i * width / data.length) + (width / data.length / 2) - 3);
                 })
-                .attr("y", function (d, i) {
+                .attr('y', function (d, i) {
                     return y(d.temp) + 50;
                 })
-                .attr("data-time", getTime)
+                .attr('data-time', getTime)
                 .text(getTime);
 
             var ratioPercentage = height / width * 110;
             $('.svg-container').css('padding-bottom', ratioPercentage + '%');
             if ($.isNumeric(this.appState.get('hour'))) {
-                var time = ((this.appState.get('hour') + 11) % 12 + 1) + (this.appState.get('hour') >= 12 ? "PM":"AM");
-                $('.js-hourBar[data-time="' + time + '"]')[0].setAttribute('class', 'js-hourBar hourBar is-active')
+                var time = ((this.appState.get('hour') + 11) % 12 + 1) + (this.appState.get('hour') >= 12 ? 'PM' : 'AM');
+                $('.js-hourBar[data-time=\'' + time + '\']')[0].setAttribute('class', 'js-hourBar hourBar is-active');
             }
         }
     });

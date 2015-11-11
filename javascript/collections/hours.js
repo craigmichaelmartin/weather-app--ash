@@ -23,7 +23,7 @@ define([
         },
 
         parse: function (response) {
-            return response.hourly_forecast;
+            return response.hourly_forecast; // jscs:ignore requireCamelCaseOrUpperCaseIdentifiers
         },
 
         byDay: function (day) {

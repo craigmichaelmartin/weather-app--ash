@@ -15,15 +15,16 @@ define([
             'windSpeedMetric', 'percipitationEnglish', 'percipitationMetric'
         ],
 
-        defaults: function() {
+        defaults: function () {
             var defaults = {};
-            this.defaultKeys.forEach(function(key) {
+            this.defaultKeys.forEach(function (key) {
                 defaults[key] = undefined;
             });
             return defaults;
         },
 
         parse: function (results) {
+            // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
             return {
                 monthname: results.FCTTIME.month_name,
                 weekday: results.FCTTIME.weekday_name,
@@ -49,6 +50,7 @@ define([
                 percipitationEnglish: results.qpf.english,
                 percipitationMetric: results.qpf.metric
             };
+            // jscs:enabled requireCamelCaseOrUpperCaseIdentifiers
         }
 
     });

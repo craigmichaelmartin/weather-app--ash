@@ -1,8 +1,10 @@
 define([
     'views/view',
     'text!templates/day.html',
-    'handlebars'
-], function (View, template, Handlebars) {
+    'handlebars',
+    'underscore',
+    'jquery'
+], function (View, template, Handlebars, _, $) {
 
     'use strict';
 

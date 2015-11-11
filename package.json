@@ -15,7 +15,7 @@
     "grunt-contrib-watch": "~0.6.1",
     "load-grunt-tasks": "~0.6.0",
     "grunt-csscomb": "~3.0.1",
-    "grunt-jscs": "~1.8.0",
+    "grunt-jscs": "2.3.0",
     "grunt-autoprefixer": "~3.0.3",
     "grunt-contrib-cssmin": "~0.12.3",
     "grunt-contrib-csslint": "~0.5.0",

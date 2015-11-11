@@ -8,11 +8,10 @@ define([
     'text!templates/app.html',
     'handlebars',
     'jquery',
-    'backbone',
     'bootstrap',
     'es5shim'
 ], function (View, ScaleView, MenuView, DaysView, StatisticsView, ChartView,
-            template, Handlebars) {
+             template, Handlebars, $) {
 
     'use strict';
 
@@ -38,7 +37,7 @@ define([
         // Because of how the wunderground API is set up, days and hours
         // are separate collections and 10 days are retrieved at a time,
         // so fetching is only necessary up front, and on zipcode change.
-        fetchForecastData: function() {
+        fetchForecastData: function () {
             $.when(
                 this.days.fetch(this.appState.attributes),
                 this.hours.fetch(this.appState.attributes)
@@ -48,7 +47,7 @@ define([
         },
 
         // If no zip is provided, obtain the zip from the ip geo-lookup.
-        ensureZip: function() {
+        ensureZip: function () {
             this.listenToOnce(this.days, 'sync', (function (collection, response) {
                 if (!this.appState.get('zip')) {
                     this.appState.set('zip', +response.location.zip);
@@ -64,12 +63,12 @@ define([
         },
 
         // Adds an `is-someCondition` class to the app element.
-        addConditionClass: function(condition) {
+        addConditionClass: function (condition) {
             this.$el.addClass(this.getConditionClass(condition));
         },
 
         // Returns a condition in the set {rainy, snowy, clear, cloudy}
-        getConditionClass: function(condition) {
+        getConditionClass: function (condition) {
             if (/rain|thunderstorm|showers/i.test(condition)) {
                 return 'is-rainy';
             }
@@ -82,17 +81,17 @@ define([
             return 'is-cloudy';
         },
 
-        appStateInvalid: function(model, errors, options) {
+        appStateInvalid: function (model, errors, options) {
             var message = 'The data provided was invalid. ' + errors.join('. ') + '.<br>PRO TIP: Valid URL path is <code>/:zip/:day/:hour/:scale</code>, <code>/:zip/:day/:scale</code>, <code>/:zip/:day</code>, <code>/:zip/:scale</code>, <code>/:zip</code>, and <code>/</code>.';
             $('.js-alertText').html(message);
             $('.js-alert').show();
         },
 
         // Kicks off the views that comprise the app.
-        makeViews: function() {
+        makeViews: function () {
             this.scaleView = new ScaleView({
                 el: $('.js-scaleView'),
-                appState: this.appState,
+                appState: this.appState
             });
             this.menuView = new MenuView({
                 el: $('.js-menu'),

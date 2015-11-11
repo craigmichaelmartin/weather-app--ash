@@ -1,8 +1,9 @@
 define([
     'views/view',
     'text!templates/menu.html',
-    'handlebarsHelpers'
-], function (View, template, Handlebars) {
+    'handlebarsHelpers',
+    'underscore'
+], function (View, template, Handlebars, _) {
 
     'use strict';
 
@@ -27,11 +28,11 @@ define([
             this.listenTo(this.model, 'invalid', this.flagInvalidZip);
         },
 
-        flagInvalidZip: function(e) {
+        flagInvalidZip: function (e) {
             this.$edit.addClass('is-invalid');
         },
 
-        flagValidZip: function(e) {
+        flagValidZip: function (e) {
             this.$edit.removeClass('is-invalid');
         },
 
@@ -60,11 +61,11 @@ define([
             this.$edit.show().focus().val(this.model.get('zip'));
         },
 
-        afterRender: function() {
+        afterRender: function () {
             this.cacheSelectors();
         },
 
-        cacheSelectors: function() {
+        cacheSelectors: function () {
             this.$edit = this.$('.js-edit');
             this.$display = this.$('.js-display');
         }
