@@ -8,17 +8,15 @@ define([
 
         defaultKeys: [
             'monthname', 'weekday', 'weekdayShort', 'day', 'hour', 'civil',
-            'condition', 'feelsLikeEnglish', 'feelsLikeMetric', 'humidity',
-            'iconUrl', 'iconAlt', 'temperatureEnglish', 'temperatureMetric',
-            'dewpointEnglish', 'dewpointMetric', 'heatIndexEnglish',
-            'heatIndexMetric', 'windDirection', 'windSpeedEnglish',
-            'windSpeedMetric', 'percipitationEnglish', 'percipitationMetric'
+            'condition', 'feelsLike', 'humidity', 'iconUrl', 'iconAlt',
+            'temperature', 'dewpoint', 'heatIndex', 'windDirection',
+            'windSpeed', 'precipitation'
         ],
 
         defaults: function () {
             var defaults = {};
             this.defaultKeys.forEach(function (key) {
-                defaults[key] = undefined;
+                defaults[key] = void 0;
             });
             return defaults;
         },
@@ -33,22 +31,16 @@ define([
                 hour: +results.FCTTIME.hour,
                 civil: results.FCTTIME.civil,
                 condition: results.condition,
-                feelsLikeEnglish: results.feelslike.english,
-                feelsLikeMetric: results.feelslike.metric,
+                feelsLike: results.feelslike.english,
                 humidity: results.humidity,
                 iconUrl: results.icon_url,
                 iconAlt: results.icon,
-                temperatureEnglish: results.temp.english,
-                temperatureMetric: results.temp.metric,
-                dewpointEnglish: results.dewpoint.english,
-                dewpointMetric: results.dewpoint.metric,
-                heatIndexEnglish: results.heatindex.english,
-                heatIndexMetric: results.heatindex.metric,
+                temperature: results.temp.english,
+                dewpoint: results.dewpoint.english,
+                heatIndex: results.heatindex.english,
                 windDirection: results.wdir.dir,
-                windSpeedEnglish: results.wspd.english,
-                windSpeedMetric: results.wspd.metric,
-                percipitationEnglish: results.qpf.english,
-                percipitationMetric: results.qpf.metric
+                windSpeed: results.wspd.english,
+                precipitation: results.qpf.english
             };
             // jscs:enabled requireCamelCaseOrUpperCaseIdentifiers
         }

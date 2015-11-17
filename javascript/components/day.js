@@ -40,7 +40,7 @@ define([
 
         getTemplateData: function () {
             return _.extend({
-                english: this.appState.get('scale') === 'english',
+                scale: this.appState.get('scale'),
                 isActive: this.appState.get('day') === this.model.get('day')
             }, this.model.attributes);
         }

@@ -1,10 +1,11 @@
 define([
     'views/view',
+    'util/get_temperature',
     'text!templates/chart.html',
     'handlebarsHelpers',
     'd3',
     'jquery'
-], function (View, template, Handlebars, d3, $) {
+], function (View, getTemperature, template, Handlebars, d3, $) {
 
     'use strict';
 
@@ -79,7 +80,7 @@ define([
 
             var data = this.hours.byDay(this.appState.get('day')).map((function (model) {
                 return {
-                    temp: this.appState.get('scale') === 'english' ? model.get('temperatureEnglish') : model.get('temperatureMetric'),
+                    temp: model.get('temperature'),
                     time: model.get('civil').split(':')[0] + model.get('civil').slice(-2)
                 };
             }).bind(this));
@@ -122,9 +123,9 @@ define([
                     return y(d.temp) + 25;
                 })
                 .attr('data-time', getTime)
-                .text(function (d) {
-                    return d.temp + '°';
-                });
+                .text((function (d) {
+                    return getTemperature(d.temp, this.appState.get('scale')) + '°';
+                }).bind(this));
 
             svg.selectAll()
                 .data(data)

@@ -37,7 +37,7 @@ define([
         },
 
         getTemplateData: function () {
-            return _.extend({english: this.model.get('scale') === 'english'}, this.model.attributes, this.currentHour.attributes);
+            return _.extend({}, this.model.attributes, this.currentHour.attributes);
         },
 
         updateZipOrCancel: function () {

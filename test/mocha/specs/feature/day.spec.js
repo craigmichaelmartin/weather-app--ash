@@ -1,6 +1,8 @@
 define(function(require) {
     'use strict';
 
+    var getTemperature = require('util/get_temperature');
+
     describe('App after loading', function() {
 
         beforeEach(function() {
@@ -36,10 +38,10 @@ define(function(require) {
             });
 
             it('should update the chart with the day\'s hours', function() {
-                var attribute = this.app.appState.get('scale') === "english" ? 'temperatureEnglish' : 'temperatureMetric';
                 var daysHours = this.app.hours.byDay(this.app.appState.get('day'));
                 $('.js-hourTemperature').each(function(index, element) {
-                    expect(daysHours.models[index].get(attribute)).to.equal(element.textContent.slice(0, -1));
+                    var temperature = getTemperature(daysHours.models[index].get('temperature'), this.app.appState.get('scale'));
+                    expect(temperature).to.equal(element.textContent.slice(0, -1));
                 }.bind(this));
             });
 

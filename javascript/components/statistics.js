@@ -39,7 +39,7 @@ define([
         },
 
         getTemplateData: function () {
-            return _.extend({english: this.appState.get('scale') === 'english'}, this.model.attributes);
+            return _.extend({}, this.model.attributes, this.appState.attributes);
         }
 
     });

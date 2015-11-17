@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-12 statistics-header">
-        {{weekday}}, {{#if english}}{{monthname}} {{day}}{{else}}{{day}} {{monthname}}{{/if}}
+        {{when weekday monthname day null scale}}
     </div>
 </div>
 <div class="row">
@@ -16,7 +16,7 @@
         Low
     </div>
     <div class="col-sm-6">
-        {{#if english}}{{lowEnglish}}&deg;F{{else}}{{lowMetric}}&deg;C{{/if}}
+        {{temperature low scale}}
     </div>
 </div>
 <div class="row">
@@ -24,7 +24,7 @@
         High
     </div>
     <div class="col-sm-6">
-        <span class="js-dayStatisticsHigh">{{#if english}}{{highEnglish}}&deg;F{{else}}{{highMetric}}&deg;C{{/if}}</span>
+        <span class="js-dayStatisticsHigh">{{temperature high scale}}</span>
     </div>
 </div>
 <div class="row">
@@ -32,7 +32,7 @@
         Snowfall
     </div>
     <div class="col-sm-6">
-        {{#if english}}{{totalSnowEnglish}} inches{{else}}{{totalSnowMetric}} centimeters{{/if}}
+        {{length totalSnow scale 'cm'}}
     </div>
 </div>
 <div class="row">
@@ -48,14 +48,14 @@
         Wind
     </div>
     <div class="col-sm-6">
-        {{#if english}}{{averageWindEnglish}}mph{{else}}{{averageWindMetric}}kph{{/if}} {{averageWindDirection}}
+        {{speed averageWindSpeed scale}} {{averageWindDirection}}
     </div>
 </div>
 <div class="row">
     <div class="col-sm-6">
-        Percipitation
+        Precipitation
     </div>
     <div class="col-sm-6">
-        {{#if english}}{{percipitationEnglish}} inches{{else}}{{percipitationMetric}} centimeters{{/if}}
+        {{length precipitation scale}}
     </div>
 </div>

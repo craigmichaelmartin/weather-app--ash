@@ -1,10 +1,56 @@
 define([
+    'util/get_temperature',
     'handlebars',
     'underscore',
     'jquery'
-], function (Handlebars, _, $) {
+], function (getTemperature, Handlebars, _, $) {
 
     'use strict';
+
+    Handlebars.registerHelper('temperature', function (number, scale, toFixed) {
+        toFixed || (toFixed = 0);
+        var temperatureRaw = Handlebars.helpers.temperatureRaw(number, scale, toFixed);
+        if (scale === 'metric') {
+            return new Handlebars.SafeString(temperatureRaw + 'C');
+        }
+        return new Handlebars.SafeString(temperatureRaw + 'F');
+    });
+
+    Handlebars.registerHelper('temperatureNoUnits', function (number, scale, toFixed) {
+        toFixed || (toFixed = 0);
+        var temperatureRaw = Handlebars.helpers.temperatureRaw(number, scale, toFixed);
+        if (scale === 'metric') {
+            return new Handlebars.SafeString(temperatureRaw);
+        }
+        return new Handlebars.SafeString(temperatureRaw);
+    });
+
+    Handlebars.registerHelper('temperatureRaw', function (number, scale, toFixed) {
+        toFixed || (toFixed = 0);
+        return getTemperature(number, scale, toFixed) + '&deg;';
+    });
+
+    Handlebars.registerHelper('length', function (number, scale, details, toFixed) {
+        toFixed || (toFixed = 0);
+        details || (details = 'mm');
+        if (scale === 'metric') {
+            var denominator = 0.39370079 * (details === 'mm' ? 0.01 : 1);
+            return new Handlebars.SafeString((+number / denominator).toFixed(toFixed) + ' millimeters');
+        }
+        return new Handlebars.SafeString((+number).toFixed(toFixed) + ' inches');
+    });
+
+    Handlebars.registerHelper('speed', function (number, scale, toFixed) {
+        toFixed || (toFixed = 0);
+        if (scale === 'metric') {
+            return new Handlebars.SafeString((+number * 1.609344).toFixed(toFixed) + ' kph');
+        }
+        return new Handlebars.SafeString((+number).toFixed(toFixed) + ' mph');
+    });
+
+    Handlebars.registerHelper('when', function (weekday, monthname, day, civil, scale) {
+        return weekday + ', ' + (scale === 'metric' ? day + ' ' + monthname : monthname + ' ' + day) + (civil ? ' at ' + civil : '');
+    });
 
     Handlebars.registerHelper('round', function (number, decimals) {
         return Number((Math.round(number + 'e' + decimals)  + 'e-' + decimals));

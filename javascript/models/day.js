@@ -7,17 +7,15 @@ define([
     var Day = Model.extend({
 
         defaultKeys: [
-            'condition', 'iconUrl', 'iconAlt', 'highEnglish', 'lowEnglish',
-            'highMetric', 'lowMetric', 'monthname', 'weekday', 'weekdayShort',
-            'day', 'totalSnowEnglish', 'totalSnowMetric', 'averageHumidity',
-            'averageWindDirection', 'averageWindMetric', 'averageWindEnglish',
-            'percipitationEnglish', 'percipitationMetric'
+            'condition', 'iconUrl', 'iconAlt', 'high', 'low', 'monthname',
+            'weekday', 'weekdayShort', 'day', 'totalSnow', 'averageHumidity',
+            'averageWindDirection', 'averageWind', 'percipitation'
         ],
 
         defaults: function () {
             var defaults = {};
             this.defaultKeys.forEach(function (key) {
-                defaults[key] = undefined;
+                defaults[key] = void 0;
             });
             return defaults;
         },
@@ -32,22 +30,17 @@ define([
                 condition: results.conditions,
                 iconUrl: results.icon_url,
                 iconAlt: results.icon,
-                highEnglish: results.high.fahrenheit,
-                lowEnglish: results.low.fahrenheit,
-                highMetric: results.high.celsius,
-                lowMetric: results.low.celsius,
+                high: results.high.fahrenheit,
+                low: results.low.fahrenheit,
                 monthname: results.date.monthname,
                 weekday: results.date.weekday,
                 weekdayShort: results.date.weekday_short,
                 day: +results.date.day,
-                totalSnowEnglish: results.snow_allday.in,
-                totalSnowMetric: results.snow_allday.cm,
+                totalSnow: results.snow_allday.in,
                 averageHumidity: results.avehumidity,
                 averageWindDirection: results.avewind.dir,
-                averageWindMetric: results.avewind.kph,
-                averageWindEnglish: results.avewind.mph,
-                percipitationEnglish: results.qpf_allday.in,
-                percipitationMetric: results.qpf_allday.mm
+                averageWind: results.avewind.mph,
+                percipitation: results.qpf_allday.in,
             };
             // jscs:enabled requireCamelCaseOrUpperCaseIdentifiers
         }

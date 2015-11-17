@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-12 statistics-header">
-        {{weekday}}, {{#if english}}{{monthname}} {{day}}{{else}}{{day}} {{monthname}}{{/if}} at {{civil}}
+        {{when weekday monthname day civil scale}}
     </div>
 </div>
 <div class="row">
@@ -16,7 +16,7 @@
         Temperature
     </div>
     <div class="col-sm-6">
-        <span class="js-hourStatisticsTemperature">{{#if english}}{{temperatureEnglish}}&deg;F{{else}}{{temperatureMetric}}&deg;C{{/if}}</span>
+        <span class="js-hourStatisticsTemperature">{{temperature temperature scale}}</span>
     </div>
 </div>
 <div class="row">
@@ -24,7 +24,7 @@
         Feels Like
     </div>
     <div class="col-sm-6">
-        {{#if english}}{{feelsLikeEnglish}}&deg;F{{else}}{{feelsLikeMetric}}&deg;C{{/if}}
+        {{temperature feelsLike scale}}
     </div>
 </div>
 <div class="row">
@@ -37,18 +37,26 @@
 </div>
 <div class="row">
     <div class="col-sm-6">
-        Wind
+        Dew Point
     </div>
     <div class="col-sm-6">
-        {{#if english}}{{WindSpeedEnglish}}mph{{else}}{{windSpeedMetric}}kph{{/if}} {{windDirection}}
+        {{temperature dewpoint scale}}
     </div>
 </div>
 <div class="row">
     <div class="col-sm-6">
-        Percipitation
+        Wind
     </div>
     <div class="col-sm-6">
-        {{#if english}}{{percipitationEnglish}} inches{{else}}{{percipitationMetric}} centimeters{{/if}}
+        {{speed windSpeed scale}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Precipitation
+    </div>
+    <div class="col-sm-6">
+        {{length precipitation scale}}
     </div>
 </div>
 <div class="row">
@@ -56,6 +64,6 @@
         Heat Index
     </div>
     <div class="col-sm-6">
-        {{#if english}}{{heatIndexEnglish}}&deg;F{{else}}{{heatIndexMetric}}&deg;C{{/if}}
+        {{temperature heatIndex scale}}
     </div>
 </div>

@@ -1,6 +1,8 @@
 define(function(require) {
     'use strict';
 
+    var getTemperature = require('util/get_temperature');
+
     describe('App after loading', function() {
 
         beforeEach(function() {
@@ -35,27 +37,27 @@ define(function(require) {
 
                 it('should change the day\'s temperatures to metric', function() {
                     var test = $('.js-dayHighTemperature').first().text();
-                    var actual = this.app.days.models[0].get('highMetric') + '°'
+                    var actual = getTemperature(this.app.days.models[0].get('high'), 'metric') + '°'
                     expect(test).to.equal(actual);
                 });
 
                 it('should change the hours temperatures to metric', function() {
                     var test = $('.js-hourTemperature').first().text();
-                    var actual = this.app.hours.byDay(this.app.appState.get('day')).models[0].get('temperatureMetric') + '°'
+                    var actual = getTemperature(this.app.hours.byDay(this.app.appState.get('day')).models[0].get('temperature'), 'metric') + '°'
                     expect(test).to.equal(actual);
                 });
             
                 it('should change the day statistics temperatures to metric', function() {
                     var test = $('.js-dayStatisticsHigh').text();
                     var day = this.app.days.findWhere({day: this.app.appState.get('day')});
-                    var actual = day.get('highMetric') + '°C';
+                    var actual = getTemperature(day.get('high'), 'metric') + '°C';
                     expect(test).to.equal(actual);
                 });
 
                 it('should change the hour statistics temperatures to metric', function() {
                     $('.js-hourBar').first().click();
                     var test = $('.js-hourStatisticsTemperature').text();
-                    var actual = this.app.hours.byDay(this.app.appState.get('day')).models[0].get('temperatureMetric') + '°C'
+                    var actual = getTemperature(this.app.hours.byDay(this.app.appState.get('day')).models[0].get('temperature'), 'metric') + '°C'
                     expect(test).to.equal(actual);
                 });
 
