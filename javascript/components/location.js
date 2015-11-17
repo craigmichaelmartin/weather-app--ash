@@ -1,13 +1,13 @@
 define([
     'views/view',
-    'text!templates/menu.html',
+    'text!templates/location.html',
     'handlebarsHelpers',
     'underscore'
 ], function (View, template, Handlebars, _) {
 
     'use strict';
 
-    var MenuView = View.extend({
+    var LocationView = View.extend({
 
         template: Handlebars.compile(template),
 
@@ -72,6 +72,6 @@ define([
 
     });
 
-    return MenuView;
+    return LocationView;
 
 });

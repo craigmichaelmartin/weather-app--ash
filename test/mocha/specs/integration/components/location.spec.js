@@ -1,13 +1,13 @@
 define(function(require) {
     'use strict';
 
-    var MenuView = require('components/menu');
+    var LocationView = require('components/location');
     var AppStateModel = require('models/app');
 
-    describe('Menu view', function() {
+    describe('Location view', function() {
 
         it('should be defined', function() {
-            expect(MenuView).not.to.be.undefined;
+            expect(LocationView).not.to.be.undefined;
         });
 
         describe('after being initialized', function() {
@@ -16,14 +16,14 @@ define(function(require) {
 
                 beforeEach(function() {
                     this.appState = new AppStateModel();
-                    sinon.stub(MenuView.prototype, 'render');
-                    sinon.stub(MenuView.prototype, 'flagInvalidZip');
-                    this.menu = new MenuView({appState: this.appState});
+                    sinon.stub(LocationView.prototype, 'render');
+                    sinon.stub(LocationView.prototype, 'flagInvalidZip');
+                    this.locationView = new LocationView({appState: this.appState});
                 });
 
                 afterEach(function() {
-                    MenuView.prototype.render.restore();
-                    MenuView.prototype.flagInvalidZip.restore();
+                    LocationView.prototype.render.restore();
+                    LocationView.prototype.flagInvalidZip.restore();
 
                 });
 
@@ -32,18 +32,18 @@ define(function(require) {
                     it('should correctly respond to dataReady', function() {
                         this.appState.trigger('dataReady');
                         // useing called twice because initialize calls it once
-                        expect(this.menu.render.calledTwice).to.be.true;
+                        expect(this.locationView.render.calledTwice).to.be.true;
                     });
 
                     it('should correctly respond to changing zip', function() {
                         this.appState.trigger('change:zip');
                         // useing called twice because initialize calls it once
-                        expect(this.menu.render.calledTwice).to.be.true;
+                        expect(this.locationView.render.calledTwice).to.be.true;
                     });
 
                     it('should correctly respond to invalid trigger', function() {
                         this.appState.trigger('invalid');
-                        expect(this.menu.flagInvalidZip.calledOnce).to.be.true;
+                        expect(this.locationView.flagInvalidZip.calledOnce).to.be.true;
                     });
 
                 });

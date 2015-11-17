@@ -1,7 +1,7 @@
 define([
     'views/view',
     'components/scale',
-    'components/menu',
+    'components/location',
     'components/days',
     'components/statistics',
     'components/chart',
@@ -10,7 +10,7 @@ define([
     'jquery',
     'bootstrap',
     'es5shim'
-], function (View, ScaleView, MenuView, DaysView, StatisticsView, ChartView,
+], function (View, ScaleView, LocationView, DaysView, StatisticsView, ChartView,
              template, Handlebars, $) {
 
     'use strict';
@@ -93,8 +93,8 @@ define([
                 el: $('.js-scaleView'),
                 appState: this.appState
             });
-            this.menuView = new MenuView({
-                el: $('.js-menu'),
+            this.locationView = new LocationView({
+                el: $('.js-location'),
                 appState: this.appState,
                 currentHour: this.hours.models[0]
             });
