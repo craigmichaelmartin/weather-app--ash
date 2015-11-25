@@ -8,34 +8,11 @@ module.exports = function (grunt) {
         javascript: 'javascript'
     };
 
-    var vendorPaths = grunt.file.readJSON('javascript/vendor_paths.json');
-    var vendorShims = grunt.file.readJSON('javascript/vendor_shims.json');
-
-    var componentPathsToClean = [];
-    componentPathsToClean.push('components/**');
-    for (var property in vendorPaths) {
-        if (vendorPaths.hasOwnProperty(property)) {
-            var path = '!' + vendorPaths[property].substring(3) + '.js';
-            componentPathsToClean.push(path);
-        }
-    }
-    componentPathsToClean.push('!components/bootstrap/dist/**');
-    componentPathsToClean.push('!components/bootstrap/less/**');
-    componentPathsToClean.push('!components/sinon-chai/**');
-    componentPathsToClean.push('!components/sinonjs/**');
-
     grunt.initConfig({
 
         pkg: grunt.file.readJSON('package.json'),
 
         config: config,
-
-        clean: {
-            componentsJS: {
-                src: componentPathsToClean,
-                filter: 'isFile'
-            }
-        },
 
         connect: {
             prod: {
@@ -170,9 +147,7 @@ module.exports = function (grunt) {
                     modules: [{
                         name: "main"
                     }],
-                    //mainConfigFile: 'javascript/require-config.js'
-                    paths: vendorPaths,
-                    shim: vendorShims
+                    mainConfigFile: 'javascript/require-config.js'
                 }
             }
         },
@@ -197,18 +172,18 @@ module.exports = function (grunt) {
                     type : 'text'
                 },
                 files: [
-                    'components/es5-shim/es5-shim.js',
-                    'components/underscore/underscore.js',
-                    'components/sinonjs/sinon.js',
-                    'components/sinon-chai/lib/sinon-chai.js',
-                    'components/requirejs/require.js',
+                    'public/vendor/es5-shim/es5-shim.js',
+                    'public/vendor/underscore/underscore.js',
+                    'public/vendor/sinonjs/sinon.js',
+                    'public/vendor/sinon-chai/lib/sinon-chai.js',
+                    'public/vendor/requirejs/require.js',
                     'test/runner.js',
                     {
                         pattern: 'javascript/**/*.*',
                         included: false
                     },
                     {
-                        pattern: 'components/**/*.js',
+                        pattern: 'public/vendor/**/*.js',
                         included: false
                     },
                     {
@@ -237,7 +212,7 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.registerTask('dist-css', ['less', 'autoprefixer', 'csscomb', 'csslint', 'cssmin']);
-    grunt.registerTask('dist', ['clean', 'dist-css', 'requirejs']);
+    grunt.registerTask('dist', ['dist-css', 'requirejs']);
     grunt.registerTask('tests', ['csscomb', 'csslint', 'jscs', 'jshint', 'karma:integration']);
     grunt.registerTask('runserver:dev', ['connect:dev']);
     grunt.registerTask('runserver', ['connect:prod']);

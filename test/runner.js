@@ -17,12 +17,7 @@
     }
 
     require.config({
-        paths: {
-            underscore: '../components/underscore/underscore',
-            text: '../components/requirejs-text/text'
-        },
-        baseUrl: "base/javascript",
-        waitSeconds: 0
+        baseUrl: "base/javascript"
     });
 
     require([
@@ -32,7 +27,7 @@
         require([
             "../test/mocha/helpers",
             "underscore"
-        ], function(Helpers) {
+        ], function(Helpers, _) {
 
             window.Helpers = Helpers;
             var specs = _.chain(karma.files)

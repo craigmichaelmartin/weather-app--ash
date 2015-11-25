@@ -9,7 +9,7 @@ define([
         defaultKeys: [
             'condition', 'iconUrl', 'iconAlt', 'high', 'low', 'monthname',
             'weekday', 'weekdayShort', 'day', 'totalSnow', 'averageHumidity',
-            'averageWindDirection', 'averageWind', 'percipitation'
+            'averageWindDirection', 'averageWind', 'precipitation'
         ],
 
         defaults: function () {
