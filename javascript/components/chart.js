@@ -124,7 +124,7 @@ define([
                 })
                 .attr('data-time', getTime)
                 .text((function (d) {
-                    return getTemperature(d.temp, this.appState.get('scale')) + '°';
+                    return getTemperature(this.appState.get('scale'), d.temp) + '°';
                 }).bind(this));
 
             svg.selectAll()

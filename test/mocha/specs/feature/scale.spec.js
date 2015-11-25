@@ -37,27 +37,27 @@ define(function(require) {
 
                 it('should change the day\'s temperatures to metric', function() {
                     var test = $('.js-dayHighTemperature').first().text();
-                    var actual = getTemperature(this.app.days.models[0].get('high'), 'metric') + '°'
+                    var actual = getTemperature('metric', this.app.days.models[0].get('high')) + '°'
                     expect(test).to.equal(actual);
                 });
 
                 it('should change the hours temperatures to metric', function() {
                     var test = $('.js-hourTemperature').first().text();
-                    var actual = getTemperature(this.app.hours.byDay(this.app.appState.get('day')).models[0].get('temperature'), 'metric') + '°'
+                    var actual = getTemperature('metric', this.app.hours.byDay(this.app.appState.get('day')).models[0].get('temperature')) + '°'
                     expect(test).to.equal(actual);
                 });
             
                 it('should change the day statistics temperatures to metric', function() {
                     var test = $('.js-dayStatisticsHigh').text();
                     var day = this.app.days.findWhere({day: this.app.appState.get('day')});
-                    var actual = getTemperature(day.get('high'), 'metric') + '°C';
+                    var actual = getTemperature('metric', day.get('high')) + '°C';
                     expect(test).to.equal(actual);
                 });
 
                 it('should change the hour statistics temperatures to metric', function() {
                     $('.js-hourBar').first().click();
                     var test = $('.js-hourStatisticsTemperature').text();
-                    var actual = getTemperature(this.app.hours.byDay(this.app.appState.get('day')).models[0].get('temperature'), 'metric') + '°C'
+                    var actual = getTemperature('metric', this.app.hours.byDay(this.app.appState.get('day')).models[0].get('temperature')) + '°C'
                     expect(test).to.equal(actual);
                 });
 

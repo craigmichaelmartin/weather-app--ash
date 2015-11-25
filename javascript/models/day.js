@@ -40,7 +40,7 @@ define([
                 averageHumidity: results.avehumidity,
                 averageWindDirection: results.avewind.dir,
                 averageWind: results.avewind.mph,
-                percipitation: results.qpf_allday.in,
+                precipitation: results.qpf_allday.in,
             };
             // jscs:enabled requireCamelCaseOrUpperCaseIdentifiers
         }
