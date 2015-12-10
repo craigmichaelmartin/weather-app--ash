@@ -7,7 +7,7 @@ define([
     var Hour = Model.extend({
 
         defaultKeys: [
-            'monthname', 'weekday', 'weekdayShort', 'day', 'hour', 'civil',
+            'monthname', 'weekday', 'weekdayShort', 'day', 'hour',
             'condition', 'feelsLike', 'humidity', 'iconUrl', 'iconAlt',
             'temperature', 'dewpoint', 'heatIndex', 'windDirection',
             'windSpeed', 'precipitation'
@@ -28,8 +28,7 @@ define([
                 weekday: results.FCTTIME.weekday_name,
                 weekdayShort: results.FCTTIME.weekday_name_abbrev,
                 day: +results.FCTTIME.mday,
-                hour: +results.FCTTIME.hour,
-                civil: results.FCTTIME.civil,
+                hour: +results.FCTTIME.hour, // 24 hour clock
                 condition: results.condition,
                 feelsLike: results.feelslike.english,
                 humidity: results.humidity,

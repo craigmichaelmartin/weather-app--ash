@@ -166,14 +166,14 @@ define(function(require) {
         describe('when', function() {
 
             it('should return an english date and time sentence when passed in english components and asked for english', function() {
-                var hopeful = Handlebars.helpers.when('english', 'Monday', 'May', '13', '5 pm');
-                var expected = 'Monday, May 13 at 5 pm';
+                var hopeful = Handlebars.helpers.when('english', 'Monday', 'May', '13', '17');
+                var expected = 'Monday, May 13 at 5:00 pm';
                 expect(hopeful).to.eql(expected);
             });
 
-            it('should return a metric style date and time sentence when passed in metric components and asked for english', function() {
-                var hopeful = Handlebars.helpers.when('english', 'Monday', 'May', '13', '5 pm');
-                var expected = 'Monday, May 13 at 5 pm';
+            it('should return a metric style date and time sentence when passed in metric components and asked for metric', function() {
+                var hopeful = Handlebars.helpers.when('metric', 'Monday', 'May', '13', '17');
+                var expected = 'Monday, 13 May at 17:00';
                 expect(hopeful).to.eql(expected);
             });
 

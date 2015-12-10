@@ -1,11 +1,12 @@
 define([
     'views/view',
     'util/get_temperature',
+    'util/time',
     'text!templates/chart.html',
     'handlebarsHelpers',
     'd3',
     'jquery'
-], function (View, getTemperature, template, Handlebars, d3, $) {
+], function (View, getTemperature, timeUtils, template, Handlebars, d3, $) {
 
     'use strict';
 
@@ -43,13 +44,7 @@ define([
         makeHourActive: function (time, el) {
             $('.hourBar.is-active').attr('class', 'js-hourBar hourBar');
             el.setAttribute('class', 'js-hourBar hourBar is-active');
-            return this.appState.set('hour', this.getHourFromTime(time));
-        },
-
-        getHourFromTime: function (time) {
-            var hour = +time.split(time.slice(-2))[0];
-            var maybeAdded12 = time.indexOf('PM') > -1 ? hour + 12 : hour;
-            return maybeAdded12 % 12 === 0 ? maybeAdded12 - 12 : maybeAdded12;
+            return this.appState.set('hour', time);
         },
 
         afterRender: function () {
@@ -81,15 +76,21 @@ define([
             var data = this.hours.byDay(this.appState.get('day')).map((function (model) {
                 return {
                     temp: model.get('temperature'),
-                    time: model.get('civil').split(':')[0] + model.get('civil').slice(-2)
+                    time: model.get('hour')
                 };
             }).bind(this));
 
             var getTime = function (d) {
                 return d.time;
             };
+            var getPresentationTime = function (d) {
+                return timeUtils.getScaledTime(this.appState.get('scale'), d.time, {hideMinutes: true});
+            };
             var getTemp = function (d) {
                 return d.temp;
+            };
+            var getPresentationTemp = function (d) {
+                return getTemperature(this.appState.get('scale'), d.temp) + '°';
             };
 
             x.domain(data.map(getTime));
@@ -123,9 +124,7 @@ define([
                     return y(d.temp) + 25;
                 })
                 .attr('data-time', getTime)
-                .text((function (d) {
-                    return getTemperature(this.appState.get('scale'), d.temp) + '°';
-                }).bind(this));
+                .text(getPresentationTemp.bind(this))
 
             svg.selectAll()
                 .data(data)
@@ -141,12 +140,12 @@ define([
                     return y(d.temp) + 50;
                 })
                 .attr('data-time', getTime)
-                .text(getTime);
+                .text(getPresentationTime.bind(this));
 
             var ratioPercentage = height / width * 110;
             $('.svg-container').css('padding-bottom', ratioPercentage + '%');
             if ($.isNumeric(this.appState.get('hour'))) {
-                var time = ((this.appState.get('hour') + 11) % 12 + 1) + (this.appState.get('hour') >= 12 ? 'PM' : 'AM');
+                var time = this.appState.get('hour');
                 $('.js-hourBar[data-time=\'' + time + '\']')[0].setAttribute('class', 'js-hourBar hourBar is-active');
             }
         }

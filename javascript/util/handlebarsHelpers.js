@@ -1,9 +1,10 @@
 define([
     'util/get_temperature',
+    'util/time',
     'handlebars',
     'underscore',
     'jquery'
-], function (getTemperature, Handlebars, _, $) {
+], function (getTemperature, time, Handlebars, _, $) {
 
     'use strict';
 
@@ -55,8 +56,8 @@ define([
         return new Handlebars.SafeString((+englishNumber).toFixed(0) + ' mph');
     });
 
-    Handlebars.registerHelper('when', function (scale, weekday, monthname, day, civil) {
-        return weekday + ', ' + (scale === 'metric' ? day + ' ' + monthname : monthname + ' ' + day) + (civil ? ' at ' + civil : '');
+    Handlebars.registerHelper('when', function (scale, weekday, monthname, day, hour) {
+        return weekday + ', ' + (scale === 'metric' ? day + ' ' + monthname : monthname + ' ' + day) + (hour == null ? '' : ' at ' + time.getScaledTime(scale, hour));
     });
 
     // {{#ifCond var1 '==' var2}}
