@@ -8,10 +8,11 @@ define([
     'text!templates/app.html',
     'handlebars',
     'jquery',
+    'underscore',
     'bootstrap',
     'es5shim'
 ], function (View, ScaleView, LocationView, DaysView, StatisticsView, ChartView,
-             template, Handlebars, $) {
+             template, Handlebars, $, _) {
 
     'use strict';
 
@@ -25,13 +26,9 @@ define([
             this.render();
             this.days = options.days;
             this.hours = options.hours;
-            this.ensureZip();
+            this.listenToOnce(this.days, 'sync', this.ensureZip);
             this.listenToOnce(this.appState, 'dataReady', this.loadApp.bind(this));
             this.listenTo(this.appState, 'invalid', this.appStateInvalid);
-            if (!this.appState.isValid()) {
-                this.appState.cleanStart({silent: true});
-            }
-            this.fetchForecastData();
         },
 
         // Because of how the wunderground API is set up, days and hours
@@ -47,12 +44,10 @@ define([
         },
 
         // If no zip is provided, obtain the zip from the ip geo-lookup.
-        ensureZip: function () {
-            this.listenToOnce(this.days, 'sync', (function (collection, response) {
-                if (!this.appState.get('zip')) {
-                    this.appState.set('zip', +response.location.zip);
-                }
-            }).bind(this));
+        ensureZip: function (collection, response) {
+            if (!this.appState.get('zip')) {
+                this.appState.set('zip', +response.location.zip);
+            }
         },
 
         // Kicks off the presentation of the app.
@@ -82,6 +77,7 @@ define([
         },
 
         appStateInvalid: function (model, errors, options) {
+            this.appState.set(_.defaults({zip: this.appState.get('zip')}, _.result(this.appState, 'defaults')));
             var message = 'The data provided was invalid. ' + errors.join('. ') + '.<br>PRO TIP: Valid URL path is <code>/:zip/:day/:hour/:scale</code>, <code>/:zip/:day/:scale</code>, <code>/:zip/:day</code>, <code>/:zip/:scale</code>, <code>/:zip</code>, and <code>/</code>.';
             $('.js-alertText').html(message);
             $('.js-alert').show();

@@ -10,6 +10,7 @@ define(function(require) {
             sinon.stub(Date.prototype, 'getHours').returns(12);
             this.server = Helpers.createServer();
             this.app = Helpers.createApp();
+            this.app.fetchForecastData();
             this.server.respond();
         });
 

@@ -9,6 +9,7 @@ define(function(require) {
                 sinon.stub(Date.prototype, 'getDate').returns(25);
                 this.server = Helpers.createServer();
                 this.app = Helpers.createApp();
+                this.app.fetchForecastData();
                 this.server.respond();
             });
 

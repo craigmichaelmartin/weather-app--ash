@@ -7,13 +7,13 @@ define([
 
     var AppState = Model.extend({
 
-        cleanStart: function (options) {
-            this.set({
+        defaults: function () {
+            return {
                 zip: void 0,
                 day: new Date().getDate(),
                 hour: void 0,
                 scale: 'english'
-            }, options);
+            };
         },
 
         scales: ['english', 'metric'],
@@ -68,6 +68,7 @@ define([
             }
             return errors.length ? errors : void 0;
         }
+
     });
 
     return AppState;

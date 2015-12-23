@@ -20,13 +20,14 @@ require([
 
         var appState = new AppState();
         var appRouter = new AppRouter({appState: appState});    // jshint ignore:line
-        Backbone.history.start({/*pushState: true*/});
-        var app = new AppView({                                 // jshint ignore:line
+        var app = new AppView({
             el: $('.js-weatherApp'),
             days: new Days(),
             hours: new Hours(),
             appState: appState
         });
+        Backbone.history.start({/*pushState: true*/});
+        app.fetchForecastData();
 
     });
 });
