@@ -167,7 +167,7 @@ define(function(require) {
 
             it('should return an english date and time sentence when passed in english components and asked for english', function() {
                 var hopeful = Handlebars.helpers.when('english', 'Monday', 'May', '13', '17');
-                var expected = 'Monday, May 13 at 5:00 pm';
+                var expected = 'Monday, May 13 at 5:00pm';
                 expect(hopeful).to.eql(expected);
             });
 

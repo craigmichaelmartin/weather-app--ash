@@ -9,7 +9,7 @@ define([
         var modHours = intHours % 12 || 12;
         var minutes = ':00';
         var displayHours = (options.hideMinutes ? modHours : (modHours + minutes));
-        var ampm = intHours >= 12 ? ' pm' : ' am';
+        var ampm = intHours >= 12 ? 'pm' : 'am';
         return displayHours + ampm;
     };
 

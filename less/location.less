@@ -1,6 +1,6 @@
 .zip {
     color: white;
-    font-size: 4em;
+    font-size: 3.9em;
     text-shadow: .1em .1em .5em #373232;
 }
 .zip-marker {
@@ -24,12 +24,12 @@
 }
 .zip-edit {
     display: inline-block;
-    width: 4em;
+    width: 3em;
     height: 1.4em;
-    font-size: 1em;
+    font-size: .9em;
     margin: 0;
     padding: 0;
-    padding-left: .5em;
+    padding-left: .1em;
 }
 .zip-edit.is-invalid {
     border: 1px solid @invalid;
@@ -40,4 +40,9 @@
     font-size: 1.5em;
     text-shadow: .1em .1em 1em @font-shadow-dark;
     text-shadow: .1em .1em 1em @font-shadow-dark--transparent;
+}
+@media (max-width: @screen-md-min) {
+    .zip-display {
+        border-bottom: 2px @primary solid;
+    }
 }

@@ -13,6 +13,7 @@ define([
 
         events: {
             'click .js-display': 'showEditMode',
+            'click .js-zip-marker': 'showEditMode',
             'blur .js-edit': 'updateZipOrCancel',
             'keyup .js-edit': 'validateZip'
         },

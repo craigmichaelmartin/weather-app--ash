@@ -43,7 +43,7 @@ define(function(require) {
                     var hoursCollection = this.app.hours.byDay(this.app.appState.get('day'));
                     var hourModel = hoursCollection.findWhere({hour: this.app.appState.get('hour')});
                     var statsHourText = $('.js-statistics').children().first().text().trim();
-                    var expected = 'Friday, September 25 at 11:00 pm';
+                    var expected = 'Friday, September 25 at 11:00pm';
                     expect(expected).to.equal(statsHourText);
                 });
 
@@ -73,7 +73,7 @@ define(function(require) {
                     var hoursCollection = this.app.hours.byDay(this.app.appState.get('day'));
                     var hourModel = hoursCollection.findWhere({hour: this.app.appState.get('hour')});
                     var statsHourText = $('.js-statistics').children().first().text().trim();
-                    var expected = 'Friday, September 25 at 11:00 pm';
+                    var expected = 'Friday, September 25 at 11:00pm';
                     expect(expected).to.equal(statsHourText);
                 });
 
@@ -103,7 +103,7 @@ define(function(require) {
                     var hoursCollection = this.app.hours.byDay(this.app.appState.get('day'));
                     var hourModel = hoursCollection.findWhere({hour: this.app.appState.get('hour')});
                     var statsHourText = $('.js-statistics').children().first().text().trim();
-                    var expected = 'Friday, September 25 at 11:00 pm';
+                    var expected = 'Friday, September 25 at 11:00pm';
                     expect(expected).to.equal(statsHourText);
                 });
 

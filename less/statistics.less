@@ -1,6 +1,11 @@
 .statistics {
     height: 350px;
     padding: 25px;
+    border-radius: 10px;
+    background-color: @secondary;
+    background-color: @secondary--transparent;
+    box-shadow: @box-shadow 1px 1px 10px;
+    box-shadow: @box-shadow--transparent 1px 1px 10px;
 }
 .statistics-header {
     font-size: 1.1em;
@@ -10,12 +15,8 @@
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
-@media (min-width: 768px) {
+@media (max-width: @screen-md-min) {
     .statistics {
-        border-radius: 10px;
-        background-color: @secondary;
-        background-color: @secondary--transparent;
-        box-shadow: @box-shadow 1px 1px 10px;
-        box-shadow: @box-shadow--transparent 1px 1px 10px;
+        height: auto;
     }
 }

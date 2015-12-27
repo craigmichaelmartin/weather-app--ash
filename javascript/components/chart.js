@@ -65,7 +65,7 @@ define([
             var margin = {
                 upper: 0,
                 right: 0,
-                bottom: 0,
+                bottom: 100,
                 left: 0
             };
             var width = $('.js-d3Chart').width() - margin.left - margin.right;
@@ -76,6 +76,10 @@ define([
 
             var y = d3.scale.linear()
                 .range([height, 0]);
+
+            var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
 
             var svg = d3.select('.js-d3Chart')
                 .append('div')
@@ -96,6 +100,24 @@ define([
 
             x.domain(data.map(getTime));
             y.domain([0, d3.max(data, getTemp)]);
+
+
+            var self = this;
+            xAxis.tickValues(
+                data.map(function(d,i) {
+                    if(i % 4 === 0) { return d.time;}
+                }).filter(function (d) {
+                    return d != void 0;
+                })
+            )
+            xAxis.tickFormat(function (d) {
+                return timeUtils.getScaledTime(self.appState.get('scale'), d, {hideMinutes: true});
+            });
+
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
 
             svg.selectAll()
                 .data(data)
