@@ -3,7 +3,7 @@ define([
 
     'use strict';
 
-    var getTemperature = function (scale, englishNumber, toFixed) {
+    var getScaledTemperature = function (scale, englishNumber, toFixed) {
         toFixed || (toFixed = 0);
         if (scale === 'english') {
             return (+englishNumber).toFixed(toFixed);
@@ -14,6 +14,8 @@ define([
         throw 'Cannot convert to scale "' + scale + '"';
     };
 
-    return getTemperature;
+    return {
+        getScaledTemperature: getScaledTemperature
+    };
 
 });

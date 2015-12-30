@@ -1,12 +1,12 @@
 define([
     'views/view',
-    'util/get_temperature',
+    'util/temperature',
     'util/time',
     'text!templates/chart.html',
     'handlebarsHelpers',
     'd3',
     'jquery'
-], function (View, getTemperature, timeUtils, template, Handlebars, d3, $) {
+], function (View, tempUtils, timeUtils, template, Handlebars, d3, $) {
 
     'use strict';
 
@@ -48,6 +48,20 @@ define([
         },
 
         afterRender: function () {
+
+            var getTime = function (d) {
+                return d.time;
+            };
+            var getPresentationTime = function (d) {
+                return timeUtils.getScaledTime(this.appState.get('scale'), d.time, {hideMinutes: true});
+            };
+            var getTemp = function (d) {
+                return d.temp;
+            };
+            var getPresentationTemp = function (d) {
+                return tempUtils.getScaledTemperature(this.appState.get('scale'), d.temp) + '°';
+            };
+
             var margin = {
                 upper: 0,
                 right: 0,
@@ -79,19 +93,6 @@ define([
                     time: model.get('hour')
                 };
             }).bind(this));
-
-            var getTime = function (d) {
-                return d.time;
-            };
-            var getPresentationTime = function (d) {
-                return timeUtils.getScaledTime(this.appState.get('scale'), d.time, {hideMinutes: true});
-            };
-            var getTemp = function (d) {
-                return d.temp;
-            };
-            var getPresentationTemp = function (d) {
-                return getTemperature(this.appState.get('scale'), d.temp) + '°';
-            };
 
             x.domain(data.map(getTime));
             y.domain([0, d3.max(data, getTemp)]);

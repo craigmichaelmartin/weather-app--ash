@@ -1,8 +1,9 @@
 define([
     'views/view',
     'text!templates/scale.html',
+    'text!templates/scale_buttons.html',
     'handlebarsHelpers'
-], function (View, template, Handlebars) {
+], function (View, template, scaleButtonsTemplate, Handlebars) {
 
     'use strict';
 

@@ -1,10 +1,10 @@
 define([
-    'util/get_temperature',
+    'util/temperature',
     'util/time',
     'handlebars',
     'underscore',
     'jquery'
-], function (getTemperature, time, Handlebars, _, $) {
+], function (tempUtils, timeUtils, Handlebars, _, $) {
 
     'use strict';
 
@@ -28,7 +28,7 @@ define([
 
     Handlebars.registerHelper('temperatureRaw', function (scale, englishNumber, toFixed) {
         toFixed || (toFixed = 0);
-        return getTemperature(scale, englishNumber, toFixed) + '&deg;';
+        return tempUtils.getScaledTemperature(scale, englishNumber, toFixed) + '&deg;';
     });
 
     Handlebars.registerHelper('length', function (scale, englishNumber, details, toFixed) {
@@ -57,7 +57,7 @@ define([
     });
 
     Handlebars.registerHelper('when', function (scale, weekday, monthname, day, hour) {
-        return weekday + ', ' + (scale === 'metric' ? day + ' ' + monthname : monthname + ' ' + day) + (hour == null ? '' : ' at ' + time.getScaledTime(scale, hour));
+        return weekday + ', ' + (scale === 'metric' ? day + ' ' + monthname : monthname + ' ' + day) + (hour == null ? '' : ' at ' + timeUtils.getScaledTime(scale, hour));
     });
 
     // {{#ifCond var1 '==' var2}}
