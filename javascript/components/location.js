@@ -42,10 +42,12 @@ define([
         },
 
         updateZipOrCancel: function () {
-            if (this.model.validate({zip: +this.$edit.val()})) {
+            var zip = +this.$edit.val();
+            if (zip === this.model.get('zip')) {
                 this.render();
-            } else {
-                this.model.set({zip: +this.$edit.val()}, {validate: true});
+            }
+            if (!this.model.set({zip: zip}, {validate: true})) {
+                this.render();
             }
         },
 
