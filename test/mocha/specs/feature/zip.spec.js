@@ -90,6 +90,7 @@ define(function(require) {
 
                         beforeEach(function() {
                             // these pass but don't really check accurately because changed validateZip
+                            $('.js-edit').blur();
                             $('.js-edit').focusout();
                             this.server.respond();
                         });
