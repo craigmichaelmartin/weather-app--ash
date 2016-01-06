@@ -5,6 +5,7 @@ define([
     'components/days',
     'components/statistics',
     'components/chart',
+    'components/alert',
     'text!templates/app.html',
     'handlebars',
     'jquery',
@@ -12,7 +13,7 @@ define([
     'bootstrap',
     'es5shim'
 ], function (View, ScaleView, LocationView, DaysView, StatisticsView, ChartView,
-             template, Handlebars, $, _) {
+             AppAlert, template, Handlebars, $, _) {
 
     'use strict';
 
@@ -78,9 +79,10 @@ define([
 
         appStateInvalid: function (model, errors, options) {
             this.appState.set(_.defaults({zip: this.appState.get('zip')}, _.result(this.appState, 'defaults')));
-            var message = 'The data provided was invalid. ' + errors.join('. ') + '.<br>PRO TIP: Valid URL path is <code>/:zip/:day/:hour/:scale</code>, <code>/:zip/:day/:scale</code>, <code>/:zip/:day</code>, <code>/:zip/:scale</code>, <code>/:zip</code>, and <code>/</code>.';
-            $('.js-alertText').html(message);
-            $('.js-alert').show();
+            var appAlert = new AppAlert({
+                el: '.js-alerts',
+                errors: errors
+            });
         },
 
         // Kicks off the views that comprise the app.
