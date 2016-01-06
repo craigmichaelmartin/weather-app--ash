@@ -26,7 +26,8 @@
 
         require([
             "../test/mocha/helpers",
-            "underscore"
+            "underscore",
+            "../test/assets"
         ], function(Helpers, _) {
 
             window.Helpers = Helpers;

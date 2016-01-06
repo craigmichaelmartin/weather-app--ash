@@ -171,6 +171,9 @@ module.exports = function (grunt) {
                 coverageReporter: {
                     type : 'text'
                 },
+                proxies: {
+                  "/public/": "/base/public/"
+                },
                 files: [
                     'public/vendor/es5-shim/es5-shim.js',
                     'public/vendor/underscore/underscore.js',
@@ -183,11 +186,19 @@ module.exports = function (grunt) {
                         included: false
                     },
                     {
-                        pattern: 'public/vendor/**/*.js',
+                        pattern: 'css/*',
+                        included: false
+                    },
+                    {
+                        pattern: 'public/vendor/**/*.*',
                         included: false
                     },
                     {
                         pattern: 'test/<%= karma.options.frameworks[0] %>/**/*',
+                        included: false
+                    },
+                    {
+                        pattern: 'test/assets.js',
                         included: false
                     }
                 ]
