@@ -1,7 +1,8 @@
 define([
     'models/model',
+    'util/date',
     'underscore'
-], function (Model, _) {
+], function (Model, dateUtils, _) {
 
     'use strict';
 
@@ -42,7 +43,7 @@ define([
             if (attrs.day) {
                 var dates = [];
                 for (var index = 0; index < 10; index++) {
-                    dates.push(now.getDate() + index);
+                    dates.push(dateUtils.getDeltaDate(now, index).getDate())
                 }
                 if (dates.indexOf(attrs.day) === -1) {
                     errors.push(this.dayNotNear);

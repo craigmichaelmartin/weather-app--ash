@@ -38,12 +38,11 @@ define(function(require) {
             describe('for day values', function() {
 
                 beforeEach(function() {
-                    this.getDate = Date.prototype.getDate;
-                    Date.prototype.getDate = sinon.stub().returns(25);
+                    this.clock = sinon.useFakeTimers(new Date(2015, 10, 25).getTime());
                 });
 
                 afterEach(function() {
-                    Date.prototype.getDate = this.getDate;
+                    this.clock.restore();
                 });
 
                 it('should return an error message for too far out', function() {
@@ -59,15 +58,11 @@ define(function(require) {
             describe('for hour values', function() {
 
                 beforeEach(function() {
-                    this.getDate = Date.prototype.getDate;
-                    Date.prototype.getDate = sinon.stub().returns(25);
-                    this.getHours = Date.prototype.getHours;
-                    Date.prototype.getHours = sinon.stub().returns(12);
+                    this.clock = sinon.useFakeTimers(new Date(2015, 10, 25, 12).getTime());
                 });
 
                 afterEach(function() {
-                    Date.prototype.getDate = this.getDate;
-                    Date.prototype.getHours = this.getHours;
+                    this.clock.restore();
                 });
 
                 it('should return an error message for hour without day', function() {

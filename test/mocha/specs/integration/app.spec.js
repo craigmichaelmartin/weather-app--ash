@@ -6,7 +6,7 @@ define(function(require) {
         describe('after being initialized', function() {
 
             beforeEach(function() {
-                sinon.stub(Date.prototype, 'getDate').returns(25);
+                this.clock = sinon.useFakeTimers(new Date(2015, 10, 25).getTime());
                 this.server = Helpers.createServer();
                 this.app = Helpers.createApp();
                 this.app.fetchForecastData();
@@ -14,7 +14,7 @@ define(function(require) {
             });
 
             afterEach(function() {
-                Date.prototype.getDate.restore();
+                this.clock.restore();
                 this.server.restore();
             });
 

@@ -58,5 +58,7 @@ define([
             el: $('body')
         });
     };
+
     return Helpers;
+
 });

@@ -94,18 +94,17 @@ define(function(require) {
             describe('with zip and scale', function() {
 
                 beforeEach(function() {
-                    this.getDate = Date.prototype.getDate;
-                    Date.prototype.getDate = sinon.stub().returns('stub-day');
+                    this.clock = sinon.useFakeTimers(new Date(2015, 10, 25).getTime());
                 });
 
                 afterEach(function() {
-                    Date.prototype.getDate = this.getDate;
+                    this.clock.restore();
                 });
                 
                 it('called normally', function() {
                     expect(Router.prototype.getValues(44024, 'metric')).to.eql({
                         zip: 44024,
-                        day: 'stub-day',
+                        day: 25,
                         hour: void 0,
                         scale: 'metric'
                     });
@@ -114,7 +113,7 @@ define(function(require) {
                 it('called as strings', function() {
                     expect(Router.prototype.getValues('44024', 'metric')).to.eql({
                         zip: 44024,
-                        day: 'stub-day',
+                        day: 25,
                         hour: void 0,
                         scale: 'metric'
                     });
@@ -123,7 +122,7 @@ define(function(require) {
                 it('called with english', function() {
                     expect(Router.prototype.getValues('44024', 'english')).to.eql({
                         zip: 44024,
-                        day: 'stub-day',
+                        day: 25,
                         hour: void 0,
                         scale: 'english'
                     });
@@ -132,7 +131,7 @@ define(function(require) {
                 it('called with metric', function() {
                     expect(Router.prototype.getValues('44024', 'metric')).to.eql({
                         zip: 44024,
-                        day: 'stub-day',
+                        day: 25,
                         hour: void 0,
                         scale: 'metric'
                     });
