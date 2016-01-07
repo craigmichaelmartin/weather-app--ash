@@ -20,8 +20,7 @@ define([
         return displayHours;
     };
 
-
-    var getScaledTime = function(scale, hours, options) {
+    var getScaledTime = function (scale, hours, options) {
         if (scale === 'english') {
             return get12HourNotation(hours, options);
         }

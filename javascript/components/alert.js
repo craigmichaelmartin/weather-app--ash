@@ -11,7 +11,7 @@ define([
 
         template: Handlebars.compile(template),
 
-        getMessage: function(errors) {
+        getMessage: function (errors) {
             return 'The data provided was invalid. ' + errors.join('. ') + '.';
         },
 
@@ -25,7 +25,7 @@ define([
             return {
                 message: this.getMessage(this.errors)
             };
-        },
+        }
 
     });
 

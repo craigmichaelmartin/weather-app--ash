@@ -9,7 +9,7 @@ define([
             return (+englishNumber).toFixed(toFixed);
         }
         if (scale === 'metric') {
-            return ((englishNumber - 32) * 5/9).toFixed(toFixed);
+            return ((englishNumber - 32) * 5 / 9).toFixed(toFixed);
         }
         throw 'Cannot convert to scale "' + scale + '"';
     };

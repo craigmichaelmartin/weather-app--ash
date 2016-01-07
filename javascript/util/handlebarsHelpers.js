@@ -36,7 +36,7 @@ define([
         if (scale === 'metric') {
             var conversion = .39370079;
             if (!details || details === 'mm') {
-                var number = (+englishNumber / (conversion * .01)).toFixed(toFixed)
+                var number = (+englishNumber / (conversion * .01)).toFixed(toFixed);
                 var length = number + ' millimeter';
             } else {
                 var number = (+englishNumber / conversion).toFixed(toFixed);

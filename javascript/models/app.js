@@ -43,7 +43,7 @@ define([
             if (attrs.day) {
                 var dates = [];
                 for (var index = 0; index < 10; index++) {
-                    dates.push(dateUtils.getDeltaDate(now, index).getDate())
+                    dates.push(dateUtils.getDeltaDate(now, index).getDate());
                 }
                 if (dates.indexOf(attrs.day) === -1) {
                     errors.push(this.dayNotNear);

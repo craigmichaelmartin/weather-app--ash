@@ -79,7 +79,7 @@ define([
 
             var xAxis = d3.svg.axis()
                 .scale(x)
-                .orient("bottom");
+                .orient('bottom');
 
             var svg = d3.select('.js-d3Chart')
                 .append('div')
@@ -101,22 +101,23 @@ define([
             x.domain(data.map(getTime));
             y.domain([0, d3.max(data, getTemp)]);
 
-
             var self = this;
             xAxis.tickValues(
-                data.map(function(d,i) {
-                    if(i % 4 === 0) { return d.time;}
+                data.map(function (d,i) {
+                    if (i % 4 === 0) {
+                        return d.time;
+                    }
                 }).filter(function (d) {
                     return d != void 0;
                 })
-            )
+            );
             xAxis.tickFormat(function (d) {
                 return timeUtils.getScaledTime(self.appState.get('scale'), d, {hideMinutes: true});
             });
 
-            svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
+            svg.append('g')
+                .attr('class', 'x axis')
+                .attr('transform', 'translate(0,' + height + ')')
                 .call(xAxis);
 
             svg.selectAll()
@@ -147,7 +148,7 @@ define([
                     return y(d.temp) + 25;
                 })
                 .attr('data-time', getTime)
-                .text(getPresentationTemp.bind(this))
+                .text(getPresentationTemp.bind(this));
 
             svg.selectAll()
                 .data(data)
