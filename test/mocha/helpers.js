@@ -1,14 +1,11 @@
 define([
-    '../../test/mocha/fixtures/specific_forecast10day',
-    '../../test/mocha/fixtures/specific_hourly10day',
     '../../test/mocha/fixtures/nonspecific_forecast10day',
     '../../test/mocha/fixtures/nonspecific_hourly10day',
     'app',
     'models/app',
     'collections/days',
     'collections/hours'
-], function(SpecificDailyFixture, SpecificHourlyFixture,
-            NonspecificDailyFixture, NonspecificHourlyFixture,
+], function(NonspecificDailyFixture, NonspecificHourlyFixture,
             App, AppState, DaysCollection, HoursCollection) {
 
     'use strict';
@@ -24,8 +21,6 @@ define([
     };
 
     Helpers.Fixtures = {
-        dailyWithZip: SpecificDailyFixture,
-        hourlyWithZip: SpecificHourlyFixture,
         dailyGeo: NonspecificDailyFixture,
         hourlyGeo: NonspecificHourlyFixture
     };
