@@ -1,47 +1,47 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var LocationView = require('components/location');
     var AppStateModel = require('models/app');
 
-    describe('Location view', function() {
+    describe('Location view', function () {
 
-        it('should be defined', function() {
+        it('should be defined', function () {
             expect(LocationView).not.to.be.undefined;
         });
 
-        describe('after being initialized', function() {
+        describe('after being initialized', function () {
 
-            describe('the event listeners', function() {
+            describe('the event listeners', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     this.appState = new AppStateModel();
                     sinon.stub(LocationView.prototype, 'render');
                     sinon.stub(LocationView.prototype, 'flagInvalidZip');
                     this.locationView = new LocationView({appState: this.appState});
                 });
 
-                afterEach(function() {
+                afterEach(function () {
                     LocationView.prototype.render.restore();
                     LocationView.prototype.flagInvalidZip.restore();
 
                 });
 
-                describe('for appState model', function() {
+                describe('for appState model', function () {
 
-                    it('should correctly respond to dataReady', function() {
+                    it('should correctly respond to dataReady', function () {
                         this.appState.trigger('dataReady');
                         // useing called twice because initialize calls it once
                         expect(this.locationView.render.calledTwice).to.be.true;
                     });
 
-                    it('should correctly respond to changing zip', function() {
+                    it('should correctly respond to changing zip', function () {
                         this.appState.trigger('change:zip');
                         // useing called twice because initialize calls it once
                         expect(this.locationView.render.calledTwice).to.be.true;
                     });
 
-                    it('should correctly respond to invalid trigger', function() {
+                    it('should correctly respond to invalid trigger', function () {
                         this.appState.trigger('invalid');
                         expect(this.locationView.flagInvalidZip.calledOnce).to.be.true;
                     });

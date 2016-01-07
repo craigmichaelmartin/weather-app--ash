@@ -1,5 +1,6 @@
-define([], function() {
+define([], function () {
     'use strict';
+    // jscs:disable
     return {
         "response": {
         "version":"0.1",
@@ -1291,4 +1292,5 @@ define([], function() {
                 }
             }
     };
+    // jscs:enabled
 });

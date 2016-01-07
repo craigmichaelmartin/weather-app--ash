@@ -1,11 +1,11 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var DaysView = require('components/days');
 
-    describe('Days view', function() {
+    describe('Days view', function () {
 
-        it('should be defined', function() {
+        it('should be defined', function () {
             expect(DaysView).not.to.be.undefined;
         });
 

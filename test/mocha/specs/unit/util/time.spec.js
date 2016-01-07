@@ -1,9 +1,9 @@
-define(function(require) {
-    "use strict";
+define(function (require) {
+    'use strict';
 
     var timeUtils = require('util/time');
 
-    describe('Time util', function() {
+    describe('Time util', function () {
 
         var hours = [
             '0', '1', '2', '3', '4', '5', '6', '7',
@@ -23,35 +23,34 @@ define(function(require) {
             '4pm', '5pm', '6pm', '7pm', '8pm', '9pm', '10pm', '11pm'
         ];
 
+        describe('get 12 hour notation', function () {
 
-        describe('get 12 hour notation', function() {
+            describe('with no options', function () {
 
-            describe('with no options', function() {
-
-                it('should return times from string hour', function() {
-                    hours.forEach(function(hour, index) {
+                it('should return times from string hour', function () {
+                    hours.forEach(function (hour, index) {
                         expect(timeUtils.get12HourNotation(hour)).to.equal(hours12Notation[index]);
                     });
                 });
 
-                it('should return times from number hour', function() {
-                    hours.forEach(function(hour, index) {
+                it('should return times from number hour', function () {
+                    hours.forEach(function (hour, index) {
                         expect(timeUtils.get12HourNotation(index)).to.equal(hours12Notation[index]);
                     });
                 });
 
             });
 
-            describe('with option to hide minutes', function() {
+            describe('with option to hide minutes', function () {
 
-                it('should return times from string hour', function() {
-                    hours.forEach(function(hour, index) {
+                it('should return times from string hour', function () {
+                    hours.forEach(function (hour, index) {
                         expect(timeUtils.get12HourNotation(hour, {hideMinutes: true})).to.equal(hours12NotationNoMinutes[index]);
                     });
                 });
 
-                it('should return times from number hour', function() {
-                    hours.forEach(function(hour, index) {
+                it('should return times from number hour', function () {
+                    hours.forEach(function (hour, index) {
                         expect(timeUtils.get12HourNotation(hour, {hideMinutes: true})).to.equal(hours12NotationNoMinutes[index]);
                     });
                 });
@@ -60,34 +59,34 @@ define(function(require) {
 
         });
 
-        describe('get 24 hour notation', function() {
+        describe('get 24 hour notation', function () {
 
-            describe('with no options', function() {
+            describe('with no options', function () {
 
-                it('should return times from string hour', function() {
-                    hours.forEach(function(hour, index) {
+                it('should return times from string hour', function () {
+                    hours.forEach(function (hour, index) {
                         expect(timeUtils.get24HourNotation(hour)).to.equal(hours[index] + ':00');
                     });
                 });
 
-                it('should return times from number hour', function() {
-                    hours.forEach(function(hour, index) {
+                it('should return times from number hour', function () {
+                    hours.forEach(function (hour, index) {
                         expect(timeUtils.get24HourNotation(index)).to.equal(hours[index] + ':00');
                     });
                 });
 
             });
 
-            describe('with option to hide minutes', function() {
+            describe('with option to hide minutes', function () {
 
-                it('should return times from string hour', function() {
-                    hours.forEach(function(hour, index) {
+                it('should return times from string hour', function () {
+                    hours.forEach(function (hour, index) {
                         expect(timeUtils.get24HourNotation(hour, {hideMinutes: true})).to.equal(hours[index]);
                     });
                 });
 
-                it('should return times from number hour', function() {
-                    hours.forEach(function(hour, index) {
+                it('should return times from number hour', function () {
+                    hours.forEach(function (hour, index) {
                         expect(timeUtils.get24HourNotation(hour, {hideMinutes: true})).to.equal(hours[index]);
                     });
                 });

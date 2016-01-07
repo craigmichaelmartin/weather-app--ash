@@ -1,9 +1,9 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
-    describe('App after loading', function() {
+    describe('App after loading', function () {
 
-        beforeEach(function() {
+        beforeEach(function () {
             this.clock = sinon.useFakeTimers(new Date(2015, 10, 25, 12).getTime());
             this.server = Helpers.createServer();
             this.app = Helpers.createApp();
@@ -11,69 +11,69 @@ define(function(require) {
             this.server.respond();
         });
 
-        afterEach(function() {
+        afterEach(function () {
             this.clock.restore();
             this.server.restore();
         });
-        
-        describe('interacting with the zip', function() {
 
-            beforeEach(function() {
+        describe('interacting with the zip', function () {
+
+            beforeEach(function () {
                 this.$zipDisplay = $('.js-zip-display').click();
             });
 
-            it('should hide the display', function() {
+            it('should hide the display', function () {
                 expect(this.$zipDisplay.css('display')).to.equal('none');
             });
 
-            it('should show the input', function() {
+            it('should show the input', function () {
                 expect($('.js-edit').css('display')).to.equal('inline-block');
             });
 
-            describe('validation', function() {
+            describe('validation', function () {
 
-                describe('with errors', function() {
+                describe('with errors', function () {
 
-                    it('should indicate invalid for no value', function() {
+                    it('should indicate invalid for no value', function () {
                         $('.js-edit').val('').trigger('keyup');
                         expect($('.js-edit').hasClass('is-invalid')).to.be.true;
                     });
 
-                    it('should indicate invalid for non-numeric', function() {
+                    it('should indicate invalid for non-numeric', function () {
                         $('.js-edit').val('12A65').trigger('keyup');
                         expect($('.js-edit').hasClass('is-invalid')).to.be.true;
                     });
 
-                    it('should indicate invalid for invalidly long length', function() {
+                    it('should indicate invalid for invalidly long length', function () {
                         $('.js-edit').val('123456').trigger('keyup');
                         expect($('.js-edit').hasClass('is-invalid')).to.be.true;
                     });
 
-                    it('should indicate invalid for invalidly short length', function() {
+                    it('should indicate invalid for invalidly short length', function () {
                         $('.js-edit').val('1234').trigger('keyup');
                         expect($('.js-edit').hasClass('is-invalid')).to.be.true;
                     });
 
-                    it('should indicate invalid for negative', function() {
+                    it('should indicate invalid for negative', function () {
                         $('.js-edit').val('-1234').trigger('keyup');
                         expect($('.js-edit').hasClass('is-invalid')).to.be.true;
                     });
 
                 });
 
-                describe('without errors', function() {
+                describe('without errors', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         $('.js-edit').val('44023').trigger('keyup');
                     });
 
-                    it('should not indicate invalid input', function() {
+                    it('should not indicate invalid input', function () {
                         expect($('.js-edit').hasClass('is-invalid')).to.be.false;
                     });
 
-                    describe('when submitted', function() {
+                    describe('when submitted', function () {
 
-                        before(function() {
+                        before(function () {
                             // record the number of requests with zip 44023
                             this.hourRequests = _.where(this.server.requests, {
                                 url: 'http://api.wunderground.com/api/3f6df2a3f0916b99/hourly10day/q/44023.json'
@@ -86,26 +86,26 @@ define(function(require) {
                             this.serverRequests = this.server.requests.length;
                         });
 
-                        beforeEach(function() {
+                        beforeEach(function () {
                             // these pass but don't really check accurately because changed validateZip
                             $('.js-edit').blur();
                             $('.js-edit').focusout();
                             this.server.respond();
                         });
 
-                        it('should hide the input', function() {
+                        it('should hide the input', function () {
                             expect($('.js-edit').css('display')).to.equal('none');
                         });
 
-                        it('should show the display', function() {
+                        it('should show the display', function () {
                             expect($('.js-zip-display').css('display')).to.equal('inline');
                         });
 
-                        it('should set the appState', function() {
+                        it('should set the appState', function () {
                             expect(this.app.appState.get('zip')).to.equal(44023);
                         });
 
-                        it('should fetch the new forecast', function() {
+                        it('should fetch the new forecast', function () {
                             var hourRequests = _.where(this.server.requests, {
                                 url: 'http://api.wunderground.com/api/3f6df2a3f0916b99/hourly10day/q/44023.json'
                             });

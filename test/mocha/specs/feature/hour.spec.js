@@ -1,9 +1,9 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
-    describe('App after loading', function() {
+    describe('App after loading', function () {
 
-        beforeEach(function() {
+        beforeEach(function () {
             this.clock = sinon.useFakeTimers(new Date(2015, 10, 25, 12).getTime());
             this.server = Helpers.createServer();
             this.app = Helpers.createApp();
@@ -11,33 +11,32 @@ define(function(require) {
             this.server.respond();
         });
 
-        afterEach(function() {
+        afterEach(function () {
             this.clock.restore();
             this.server.restore();
         });
-            
 
-        describe('interacting with an hour', function() {
+        describe('interacting with an hour', function () {
 
-            describe('bar', function() {
+            describe('bar', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     this.$clickedHour = $('.js-hourBar').last().click();
                 });
 
-                it('should update the app state model', function() {
+                it('should update the app state model', function () {
                     expect(this.app.appState.get('hour')).to.equal(23);
                 });
 
-                it('should add the active class to it', function() {
+                it('should add the active class to it', function () {
                     expect(this.$clickedHour[0].className.animVal.indexOf('is-active') >= 0).to.be.true;
                 });
 
-                it('should result in only one active class', function() {
+                it('should result in only one active class', function () {
                     expect($('.hourBar.is-active').length).to.equal(1);
                 });
 
-                it('should update the sidebar with the hours\'s statistics', function() {
+                it('should update the sidebar with the hours\'s statistics', function () {
                     var hoursCollection = this.app.hours.byDay(this.app.appState.get('day'));
                     var hourModel = hoursCollection.findWhere({hour: this.app.appState.get('hour')});
                     var statsHourText = $('.js-statistics').children().first().text().trim();
@@ -47,27 +46,27 @@ define(function(require) {
 
             });
 
-            describe('time text', function() {
+            describe('time text', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     this.$clickedHourText = $('.js-hourTime').last().click();
                 });
 
-                it('should update the app state model', function() {
+                it('should update the app state model', function () {
                     expect(this.app.appState.get('hour')).to.equal(23);
                 });
 
-                it('should add the active class to it\'s bar', function() {
+                it('should add the active class to it\'s bar', function () {
                     var time = this.$clickedHourText.data('time');
-                    var el = $("[data-time='" + time +"']")[0];
+                    var el = $('[data-time=\'' + time + '\']')[0];
                     expect(el.className.animVal.indexOf('is-active') >= 0).to.be.true;
                 });
 
-                it('should result in only one active class', function() {
+                it('should result in only one active class', function () {
                     expect($('.hourBar.is-active').length).to.equal(1);
                 });
 
-                it('should update the sidebar with the hours\'s statistics', function() {
+                it('should update the sidebar with the hours\'s statistics', function () {
                     var hoursCollection = this.app.hours.byDay(this.app.appState.get('day'));
                     var hourModel = hoursCollection.findWhere({hour: this.app.appState.get('hour')});
                     var statsHourText = $('.js-statistics').children().first().text().trim();
@@ -77,27 +76,27 @@ define(function(require) {
 
             });
 
-            describe('temperature text', function() {
+            describe('temperature text', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     this.$clickedHourText = $('.js-hourTemperature').last().click();
                 });
 
-                it('should update the app state model', function() {
+                it('should update the app state model', function () {
                     expect(this.app.appState.get('hour')).to.equal(23);
                 });
 
-                it('should add the active class to it\'s bar', function() {
+                it('should add the active class to it\'s bar', function () {
                     var time = this.$clickedHourText.data('time');
-                    var el = $("[data-time='" + time +"']")[0];
+                    var el = $('[data-time=\'' + time + '\']')[0];
                     expect(el.className.animVal.indexOf('is-active') >= 0).to.be.true;
                 });
 
-                it('should result in only one active class', function() {
+                it('should result in only one active class', function () {
                     expect($('.hourBar.is-active').length).to.equal(1);
                 });
 
-                it('should update the sidebar with the hours\'s statistics', function() {
+                it('should update the sidebar with the hours\'s statistics', function () {
                     var hoursCollection = this.app.hours.byDay(this.app.appState.get('day'));
                     var hourModel = hoursCollection.findWhere({hour: this.app.appState.get('hour')});
                     var statsHourText = $('.js-statistics').children().first().text().trim();
@@ -110,4 +109,5 @@ define(function(require) {
         });
 
     });
+
 });

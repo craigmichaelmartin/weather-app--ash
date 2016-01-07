@@ -68,6 +68,9 @@ module.exports = function (grunt) {
             },
             core: {
                 src: 'javascript/**/*.js'
+            },
+            test: {
+                src: 'test/**/*.js'
             }
         },
 

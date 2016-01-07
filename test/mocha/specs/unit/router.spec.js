@@ -1,19 +1,19 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var Router = require('router');
 
-    describe('Router', function() {
+    describe('Router', function () {
 
-        it('should be defined', function() {
+        it('should be defined', function () {
             expect(Router).not.to.be.undefined;
         });
 
-        describe('the getValues function', function() {
+        describe('the getValues function', function () {
 
-            describe('with zip, day, hour, and scale', function() {
+            describe('with zip, day, hour, and scale', function () {
 
-                it('called normally', function() {
+                it('called normally', function () {
                     expect(Router.prototype.getValues(44024, 24, 1, 'metric')).to.eql({
                         zip: 44024,
                         day: 24,
@@ -22,7 +22,7 @@ define(function(require) {
                     });
                 });
 
-                it('called as strings', function() {
+                it('called as strings', function () {
                     expect(Router.prototype.getValues('44024', '24', '1', 'metric')).to.eql({
                         zip: 44024,
                         day: 24,
@@ -31,7 +31,7 @@ define(function(require) {
                     });
                 });
 
-                it('called with english', function() {
+                it('called with english', function () {
                     expect(Router.prototype.getValues('44024', '24', '1', 'english')).to.eql({
                         zip: 44024,
                         day: 24,
@@ -40,7 +40,7 @@ define(function(require) {
                     });
                 });
 
-                it('called with metric', function() {
+                it('called with metric', function () {
                     expect(Router.prototype.getValues('44024', '24', '1', 'metric')).to.eql({
                         zip: 44024,
                         day: 24,
@@ -51,9 +51,9 @@ define(function(require) {
 
             });
 
-            describe('with zip, day, and scale', function() {
+            describe('with zip, day, and scale', function () {
 
-                it('called normally', function() {
+                it('called normally', function () {
                     expect(Router.prototype.getValues(44024, 24, 'metric')).to.eql({
                         zip: 44024,
                         day: 24,
@@ -62,7 +62,7 @@ define(function(require) {
                     });
                 });
 
-                it('called as strings', function() {
+                it('called as strings', function () {
                     expect(Router.prototype.getValues('44024', '24', 'metric')).to.eql({
                         zip: 44024,
                         day: 24,
@@ -71,7 +71,7 @@ define(function(require) {
                     });
                 });
 
-                it('called with english', function() {
+                it('called with english', function () {
                     expect(Router.prototype.getValues('44024', '24', 'english')).to.eql({
                         zip: 44024,
                         day: 24,
@@ -80,7 +80,7 @@ define(function(require) {
                     });
                 });
 
-                it('called with metric', function() {
+                it('called with metric', function () {
                     expect(Router.prototype.getValues('44024', '24', 'metric')).to.eql({
                         zip: 44024,
                         day: 24,
@@ -91,17 +91,17 @@ define(function(require) {
 
             });
 
-            describe('with zip and scale', function() {
+            describe('with zip and scale', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     this.clock = sinon.useFakeTimers(new Date(2015, 10, 25).getTime());
                 });
 
-                afterEach(function() {
+                afterEach(function () {
                     this.clock.restore();
                 });
-                
-                it('called normally', function() {
+
+                it('called normally', function () {
                     expect(Router.prototype.getValues(44024, 'metric')).to.eql({
                         zip: 44024,
                         day: 25,
@@ -110,7 +110,7 @@ define(function(require) {
                     });
                 });
 
-                it('called as strings', function() {
+                it('called as strings', function () {
                     expect(Router.prototype.getValues('44024', 'metric')).to.eql({
                         zip: 44024,
                         day: 25,
@@ -119,7 +119,7 @@ define(function(require) {
                     });
                 });
 
-                it('called with english', function() {
+                it('called with english', function () {
                     expect(Router.prototype.getValues('44024', 'english')).to.eql({
                         zip: 44024,
                         day: 25,
@@ -128,7 +128,7 @@ define(function(require) {
                     });
                 });
 
-                it('called with metric', function() {
+                it('called with metric', function () {
                     expect(Router.prototype.getValues('44024', 'metric')).to.eql({
                         zip: 44024,
                         day: 25,
