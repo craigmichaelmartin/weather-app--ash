@@ -42,17 +42,17 @@ define(function (require) {
 
             });
 
-            describe('the hours model', function () {
+            describe('the hours collection', function () {
 
-                it('should have a 200 models', function () {
+                it('should have 200 hour models', function () {
                     expect(this.app.hours.length).to.equal(240);
                 });
 
             });
 
-            describe('the days model', function () {
+            describe('the days collection', function () {
 
-                it('should have a length of 10 models', function () {
+                it('should have 10 day models', function () {
                     expect(this.app.days.length).to.equal(10);
                 });
 

@@ -1,7 +1,9 @@
 define([
     'backbone',
+    'util/date',
+    'util/time',
     'jquery'
-], function (Backbone, $) {
+], function (Backbone, dateUtils, timeUtils, $) {
 
     'use strict';
 
@@ -33,7 +35,7 @@ define([
 
         updatePeripheralsWithState: function () {
             this.navigate(this.getUrl());
-            document.title = 'Weather for ' + this.appState.get('zip') + ' on ' + this.appState.get('day');
+            document.title = this.getTitle();
         },
 
         getUrl: function () {
@@ -41,6 +43,22 @@ define([
                    '/' + this.appState.get('day') +
                    (this.appState.get('hour') === void 0 ? '' : ('/' + this.appState.get('hour'))) +
                    '/' + this.appState.get('scale');
+        },
+
+        getTitle: function () {
+            var now = new Date();
+            var month = now.getMonth() + 1;
+            var day = now.getDate();
+            var appStateDay = this.appState.get('day');
+            if (appStateDay < day) {
+                month = month + 1;
+            }
+            var baseTitle = 'Weather for ' + this.appState.get('zip');
+            var scale = this.appState.get('scale');
+            var dateTitle = ' on ' + dateUtils.getScaledShortDate(scale, month, appStateDay);
+            var hour = this.appState.get('hour');
+            var hourTitle = (hour === void 0) ? '' : ' at ' + timeUtils.getScaledTime(scale, hour);
+            return baseTitle + dateTitle + hourTitle;
         }
 
     });
