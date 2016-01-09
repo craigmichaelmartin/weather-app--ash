@@ -39,7 +39,7 @@ define([
         getUrl: function () {
             return '' + this.appState.get('zip') +
                    '/' + this.appState.get('day') +
-                   ($.isNumeric(this.appState.get('hour')) ? ('/' + this.appState.get('hour')) : '') +
+                   (this.appState.get('hour') === void 0 ? '' : ('/' + this.appState.get('hour'))) +
                    '/' + this.appState.get('scale');
         }
 

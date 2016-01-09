@@ -34,7 +34,7 @@ define([
         loadDay: function (ev) {
             $('.day.is-active').removeClass('is-active');
             $(ev.currentTarget).addClass('is-active');
-            this.appState.attributes.hour = null;
+            this.appState.attributes.hour = void 0;
             this.appState.set('day', this.model.get('day'));
         },
 
