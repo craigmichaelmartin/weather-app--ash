@@ -30,6 +30,25 @@ define(function (require) {
 
         });
 
+        describe('get scaled short date', function () {
+
+            it('should return english format', function () {
+                var shortDate = dateUtils.getScaledShortDate('english', '12', '25');
+                expect(shortDate).to.eql('12/25');
+            });
+
+            it('should return metric format', function () {
+                var shortDate = dateUtils.getScaledShortDate('metric', '12', '25');
+                expect(shortDate).to.eql('25/12');
+            });
+
+            it('should raise an error for invalid scale', function () {
+                var partial = dateUtils.getScaledShortDate.bind(null, 'kelvin', '12', '25');
+                expect(partial).to.throw(/Cannot convert to scale "kelvin"/);
+            });
+
+        });
+
     });
 
 });

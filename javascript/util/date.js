@@ -9,8 +9,19 @@ define([
         return dateClone;
     };
 
+    var getScaledShortDate = function (scale, month, day) {
+        if (scale === 'english') {
+            return month + '/' + day;
+        }
+        if (scale === 'metric') {
+            return day + '/' + month;
+        }
+        throw 'Cannot convert to scale "' + scale + '"';
+    };
+
     return {
-        getDeltaDate: getDeltaDate
+        getDeltaDate: getDeltaDate,
+        getScaledShortDate: getScaledShortDate
     };
 
 });
