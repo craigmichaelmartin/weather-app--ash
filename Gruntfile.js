@@ -15,7 +15,7 @@ module.exports = function (grunt) {
         config: config,
 
         connect: {
-            prod: {
+            production: {
                 options: {
                     hostname: '127.0.0.1',
                     port: 9001,
@@ -24,7 +24,7 @@ module.exports = function (grunt) {
                     base: 'dist',
                 }
             },
-            dev: {
+            development: {
                 options: {
                     hostname: '127.0.0.1',
                     port: 8080,
@@ -36,7 +36,7 @@ module.exports = function (grunt) {
         },
 
         less: {
-            compileCore: {
+            core: {
                 options: {
                     strictMath: true,
                     sourceMap: true,
@@ -52,22 +52,22 @@ module.exports = function (grunt) {
 
         csscomb: {
             options: {
-                config: 'less/.csscomb.json'
+                config: '<%= config.less %>/.csscomb.json'
             },
-            dist: {
+            core: {
                 expand: true,
-                cwd: 'css/',
+                cwd: '<%= config.css %>/',
                 src: ['*.css'],
-                dest: 'css/'
+                dest: '<%= config.css %>/'
             },
         },
 
         jscs: {
             options: {
-                config: 'javascript/.jscsrc'
+                config: '<%= config.javascript %>/.jscsrc'
             },
             core: {
-                src: 'javascript/**/*.js'
+                src: '<%= config.javascript %>/**/*.js'
             },
             test: {
                 src: 'test/**/*.js'
@@ -91,7 +91,7 @@ module.exports = function (grunt) {
                 options: {
                     map: true
                 },
-                src: 'css/app.css'
+                src: '<%= config.css %>/app.css'
             }
         },
 
@@ -102,9 +102,9 @@ module.exports = function (grunt) {
                 sourceMap: true,
                 advanced: false
             },
-            minifyCore: {
-                src: 'css/app.css',
-                dest: 'css/app.css'
+            core: {
+                src: '<%= config.css %>/app.css',
+                dest: '<%= config.css %>/app.css'
             }
         },
 
@@ -112,15 +112,15 @@ module.exports = function (grunt) {
             options: {
                 csslintrc: 'less/.csslintrc'
             },
-            dist: 'css/app.css'
+            core: '<%= config.css %>/app.css'
         },
 
         jshint: {
             options: {
-                jshintrc: 'javascript/.jshintrc'
+                jshintrc: '<%= config.javascript %>/.jshintrc'
             },
             core: {
-                src: 'javascript/**/*.js'
+                src: '<%= config.javascript %>/**/*.js'
             },
         },
 
@@ -139,7 +139,7 @@ module.exports = function (grunt) {
             compile: {
                 options: {
                     appDir: "./",
-                    baseUrl: "./javascript",
+                    baseUrl: "./<%= config.javascript %>",
                     removeCombined: true,
                     findNestedDependencies: true,
                     dir: "dist/",
@@ -150,7 +150,7 @@ module.exports = function (grunt) {
                     modules: [{
                         name: "main"
                     }],
-                    mainConfigFile: 'javascript/require-config.js'
+                    mainConfigFile: '<%= config.javascript %>/require-config.js'
                 }
             }
         },
@@ -169,7 +169,7 @@ module.exports = function (grunt) {
                     'karma-coverage'
                 ],
                 preprocessors: {
-                    'javascript/**/*.js': ['coverage']
+                    '<%= config.javascript %>/**/*.js': ['coverage']
                 },
                 coverageReporter: {
                     type : 'text'
@@ -185,11 +185,11 @@ module.exports = function (grunt) {
                     'public/vendor/requirejs/require.js',
                     'test/runner.js',
                     {
-                        pattern: 'javascript/**/*.*',
+                        pattern: '<%= config.javascript %>/**/*.*',
                         included: false
                     },
                     {
-                        pattern: 'css/*',
+                        pattern: '<%= config.css %>/*',
                         included: false
                     },
                     {
@@ -206,13 +206,13 @@ module.exports = function (grunt) {
                     }
                 ]
             },
-            integration: {
+            test: {
                 options: {
                     singleRun: true,
                     browsers: ['PhantomJS'],
                 }
             },
-            dev: {
+            development: {
                 options: {
                     singleRun: false,
                     browsers: ['Chrome'],
@@ -225,10 +225,10 @@ module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
 
-    grunt.registerTask('dist-css', ['less', 'autoprefixer', 'csscomb', 'csslint', 'cssmin']);
-    grunt.registerTask('dist', ['dist-css', 'requirejs']);
-    grunt.registerTask('tests', ['csscomb', 'csslint', 'jscs', 'jshint', 'karma:integration']);
-    grunt.registerTask('runserver:dev', ['connect:dev']);
-    grunt.registerTask('runserver', ['connect:prod']);
+    grunt.registerTask('dist-css', ['less', 'autoprefixer', 'csscomb', 'cssmin']);
+    grunt.registerTask('runserver:dev', ['connect:development']);
+    grunt.registerTask('runserver', ['connect:production']);
+    grunt.registerTask('test', ['less', 'csslint', 'jscs', 'jshint', 'karma:test']);
+    grunt.registerTask('dist', ['test', 'autoprefixer', 'csscomb', 'cssmin', 'requirejs']);
     grunt.registerTask('default', ['dist']);
 };
