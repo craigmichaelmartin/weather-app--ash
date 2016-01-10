@@ -2,6 +2,7 @@ define(function (require) {
     'use strict';
 
     var Handlebars = require('handlebars');
+    var lengthUtils = require('util/length');
 
     describe('Handlebars helpers', function () {
 
@@ -128,13 +129,13 @@ define(function (require) {
             });
 
             it('should return metric for one unit when passed in english and asked for metric', function () {
-                var hopeful = Handlebars.helpers.length('metric', .3937, 'cm');
+                var hopeful = Handlebars.helpers.length('metric', lengthUtils.inchesToCentimeters, 'cm');
                 var expected = new Handlebars.SafeString('1 centimeter');
                 expect(hopeful).to.eql(expected);
             });
 
             it('should return metric for one unit to x digits when passed in english and asked for metric to x digits', function () {
-                var hopeful = Handlebars.helpers.length('metric', .3937, 'cm', 2);
+                var hopeful = Handlebars.helpers.length('metric', lengthUtils.inchesToCentimeters, 'cm', 2);
                 var expected = new Handlebars.SafeString('1.00 centimeter');
                 expect(hopeful).to.eql(expected);
             });

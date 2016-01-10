@@ -1,10 +1,11 @@
 define([
     'util/temperature',
     'util/time',
+    'util/length',
     'handlebars',
     'underscore',
     'jquery'
-], function (tempUtils, timeUtils, Handlebars, _, $) {
+], function (tempUtils, timeUtils, lengthUtils, Handlebars, _, $) {
 
     'use strict';
 
@@ -33,20 +34,8 @@ define([
 
     Handlebars.registerHelper('length', function (scale, englishNumber, details, toFixed) {
         toFixed || (toFixed = 0);
-        if (scale === 'metric') {
-            var conversion = .39370079;
-            if (!details || details === 'mm') {
-                var number = (+englishNumber / (conversion * .01)).toFixed(toFixed);
-                var length = number + ' millimeter';
-            } else {
-                var number = (+englishNumber / conversion).toFixed(toFixed);
-                var length = number + ' centimeter';
-            }
-            return new Handlebars.SafeString(length + (+number === 1 ? '' : 's'));
-        }
-        var number = (+englishNumber).toFixed(toFixed);
-        var length = number + ' inch';
-        return new Handlebars.SafeString(length + (+number === 1 ? '' : 'es'));
+        var length = lengthUtils.getScaledLength(scale, englishNumber, details, toFixed);
+        return new Handlebars.SafeString(length);
     });
 
     Handlebars.registerHelper('speed', function (scale, englishNumber) {
