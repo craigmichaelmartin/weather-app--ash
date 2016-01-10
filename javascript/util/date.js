@@ -1,5 +1,6 @@
 define([
-], function () {
+    'util/time'
+], function (timeUtils) {
 
     'use strict';
 
@@ -19,9 +20,14 @@ define([
         throw 'Cannot convert to scale "' + scale + '"';
     };
 
+    var getDateSentence = function (scale, weekday, monthname, day, hour) {
+        return weekday + ', ' + (scale === 'metric' ? day + ' ' + monthname : monthname + ' ' + day) + (hour == null ? '' : ' at ' + timeUtils.getScaledTime(scale, hour));
+    };
+
     return {
         getDeltaDate: getDeltaDate,
-        getScaledShortDate: getScaledShortDate
+        getScaledShortDate: getScaledShortDate,
+        getDateSentence: getDateSentence
     };
 
 });

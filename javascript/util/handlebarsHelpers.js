@@ -1,52 +1,39 @@
 define([
     'util/temperature',
-    'util/time',
+    'util/date',
     'util/length',
+    'util/speed',
     'handlebars',
     'underscore',
     'jquery'
-], function (tempUtils, timeUtils, lengthUtils, Handlebars, _, $) {
+], function (tempUtils, dateUtils, lengthUtils, speedUtils, Handlebars, _, $) {
 
     'use strict';
 
     Handlebars.registerHelper('temperature', function (scale, englishNumber, toFixed) {
-        toFixed || (toFixed = 0);
-        var temperatureRaw = Handlebars.helpers.temperatureRaw(scale, englishNumber, toFixed);
-        if (scale === 'metric') {
-            return new Handlebars.SafeString(temperatureRaw + 'C');
-        }
-        return new Handlebars.SafeString(temperatureRaw + 'F');
+        var temperatureRaw = tempUtils.getScaledTemperature(scale, englishNumber, toFixed);
+        var postfix = '&deg;' + (scale === 'metric' ? 'C' : 'F');
+        return new Handlebars.SafeString(temperatureRaw + postfix);
     });
 
     Handlebars.registerHelper('temperatureNoUnits', function (scale, englishNumber, toFixed) {
-        toFixed || (toFixed = 0);
-        var temperatureRaw = Handlebars.helpers.temperatureRaw(scale, englishNumber, toFixed);
-        if (scale === 'metric') {
-            return new Handlebars.SafeString(temperatureRaw);
-        }
-        return new Handlebars.SafeString(temperatureRaw);
-    });
-
-    Handlebars.registerHelper('temperatureRaw', function (scale, englishNumber, toFixed) {
-        toFixed || (toFixed = 0);
-        return tempUtils.getScaledTemperature(scale, englishNumber, toFixed) + '&deg;';
+        var temperatureRaw = tempUtils.getScaledTemperature(scale, englishNumber, toFixed);
+        return new Handlebars.SafeString(temperatureRaw + '&deg;');
     });
 
     Handlebars.registerHelper('length', function (scale, englishNumber, details, toFixed) {
-        toFixed || (toFixed = 0);
         var length = lengthUtils.getScaledLength(scale, englishNumber, details, toFixed);
         return new Handlebars.SafeString(length);
     });
 
-    Handlebars.registerHelper('speed', function (scale, englishNumber) {
-        if (scale === 'metric') {
-            return new Handlebars.SafeString((+englishNumber * 1.609344).toFixed(0) + ' kph');
-        }
-        return new Handlebars.SafeString((+englishNumber).toFixed(0) + ' mph');
+    Handlebars.registerHelper('speed', function (scale, englishNumber, toFixed) {
+        var speed = speedUtils.getScaledSpeed(scale, englishNumber, toFixed);
+        var postfix = scale === 'metric' ? ' kph' : ' mph';
+        return new Handlebars.SafeString(speed + postfix);
     });
 
     Handlebars.registerHelper('when', function (scale, weekday, monthname, day, hour) {
-        return weekday + ', ' + (scale === 'metric' ? day + ' ' + monthname : monthname + ' ' + day) + (hour == null ? '' : ' at ' + timeUtils.getScaledTime(scale, hour));
+        return dateUtils.getDateSentence(scale, weekday, monthname, day, hour);
     });
 
     // {{#ifCond var1 '==' var2}}

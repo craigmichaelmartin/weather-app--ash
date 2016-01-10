@@ -7,6 +7,7 @@ define([
     var inchesToMillimeters = inchesToCentimeters * 0.01;
 
     var getScaledLength = function (scale, englishNumber, details, toFixed) {
+        toFixed || (toFixed = 0);
         var number, length;
         if (scale === 'english') {
             number = (+englishNumber).toFixed(toFixed);

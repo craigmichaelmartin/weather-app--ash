@@ -62,34 +62,6 @@ define(function (require) {
 
         });
 
-        describe('temperatureRaw', function () {
-
-            it('should return english when passed in english and asked for english', function () {
-                var hopeful = Handlebars.helpers.temperatureRaw('english', 32);
-                var expected = '32&deg;';
-                expect(hopeful).to.eql(expected);
-            });
-
-            it('should return english to x digits when passed in english and asked for english to x digits', function () {
-                var hopeful = Handlebars.helpers.temperatureRaw('english', 32, 2);
-                var expected = '32.00&deg;';
-                expect(hopeful).to.eql(expected);
-            });
-
-            it('should return metric when passed in english and asked for metric', function () {
-                var hopeful = Handlebars.helpers.temperatureRaw('metric', 32);
-                var expected = '0&deg;';
-                expect(hopeful).to.eql(expected);
-            });
-
-            it('should return metric to x digits when passed in english and asked for metric to x digits', function () {
-                var hopeful = Handlebars.helpers.temperatureRaw('metric', 32, 2);
-                var expected = '0.00&deg;';
-                expect(hopeful).to.eql(expected);
-            });
-
-        });
-
         describe('length', function () {
 
             it('should return english when passed in english and asked for english', function () {
