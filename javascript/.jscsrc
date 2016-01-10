@@ -28,7 +28,6 @@
     ],
     "disallowMultipleLineBreaks": true,
     "disallowMultipleLineStrings": true,
-    "disallowMultipleVarDecl": true,
     "disallowSpaceBeforeComma": true,
     "disallowSpaceBeforeSemicolon": true,
     "disallowNewlineBeforeBlockStatements": false,

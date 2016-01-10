@@ -108,7 +108,7 @@ define([
                         return d.time;
                     }
                 }).filter(function (d) {
-                    return d != void 0;
+                    return d !== void 0;
                 })
             );
             xAxis.tickFormat(function (d) {

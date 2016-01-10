@@ -79,7 +79,7 @@ define([
 
         appStateInvalid: function (model, errors, options) {
             this.appState.set(_.defaults({zip: this.appState.get('zip')}, _.result(this.appState, 'defaults')));
-            var appAlert = new AppAlert({
+            var appAlert = new AppAlert({ // jshint ignore:line
                 el: '.js-alerts',
                 errors: errors
             });
