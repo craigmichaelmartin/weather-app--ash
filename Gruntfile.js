@@ -5,7 +5,9 @@ module.exports = function (grunt) {
     var config = {
         css: 'css',
         less: 'less',
-        javascript: 'javascript'
+        javascript: 'javascript',
+        test: 'test',
+        vendor: 'public'
     };
 
     grunt.initConfig({
@@ -70,7 +72,7 @@ module.exports = function (grunt) {
                 src: '<%= config.javascript %>/**/*.js'
             },
             test: {
-                src: 'test/**/*.js'
+                src: '<%= config.test %>/**/*.js'
             }
         },
 
@@ -122,6 +124,9 @@ module.exports = function (grunt) {
             core: {
                 src: '<%= config.javascript %>/**/*.js'
             },
+            test: {
+                src: '<%= config.test %>/<%= karma.options.frameworks[0] %>/specs/**/*.js'
+            }
         },
 
         watch: {
@@ -175,15 +180,15 @@ module.exports = function (grunt) {
                     type : 'text'
                 },
                 proxies: {
-                  "/public/": "/base/public/"
+                  "/public/": "/base/<%= config.vendor %>/"
                 },
                 files: [
-                    'public/vendor/es5-shim/es5-shim.js',
-                    'public/vendor/underscore/underscore.js',
-                    'public/vendor/sinonjs/sinon.js',
-                    'public/vendor/sinon-chai/lib/sinon-chai.js',
-                    'public/vendor/requirejs/require.js',
-                    'test/runner.js',
+                    '<%= config.vendor %>/vendor/es5-shim/es5-shim.js',
+                    '<%= config.vendor %>/vendor/underscore/underscore.js',
+                    '<%= config.vendor %>/vendor/sinonjs/sinon.js',
+                    '<%= config.vendor %>/vendor/sinon-chai/lib/sinon-chai.js',
+                    '<%= config.vendor %>/vendor/requirejs/require.js',
+                    '<%= config.test %>/runner.js',
                     {
                         pattern: '<%= config.javascript %>/**/*.*',
                         included: false
@@ -193,15 +198,15 @@ module.exports = function (grunt) {
                         included: false
                     },
                     {
-                        pattern: 'public/vendor/**/*.*',
+                        pattern: '<%= config.vendor %>/vendor/**/*.*',
                         included: false
                     },
                     {
-                        pattern: 'test/<%= karma.options.frameworks[0] %>/**/*',
+                        pattern: '<%= config.test %>/<%= karma.options.frameworks[0] %>/**/*',
                         included: false
                     },
                     {
-                        pattern: 'test/assets.js',
+                        pattern: '<%= config.test %>/assets.js',
                         included: false
                     }
                 ]

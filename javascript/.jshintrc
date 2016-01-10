@@ -6,8 +6,19 @@
     "funcscope"     : true,
     "futurehostile" : true,
     "globals"       : {
-        "define"        : false,
-        "require"       : false
+        "define"    : false,
+        "require"   : false,
+        "describe"  : false,
+        "it"        : false,
+        "before"    : false,
+        "beforeEach": false,
+        "after"     : false,
+        "afterEach" : false,
+        "expect"    : false,
+        "sinon"     : false,
+        "Helpers"   : false,
+        "$"         : false,
+        "_"         : false
     },
     "latedef"       : true,
     "maxcomplexity" : false,

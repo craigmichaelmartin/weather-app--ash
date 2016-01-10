@@ -3,7 +3,6 @@ define(function (require) {
 
     var HoursCollection = require('collections/hours');
     var HourModel = require('models/hour');
-    var should = chai.should();
 
     describe('Hours collection', function () {
 
@@ -61,7 +60,7 @@ define(function (require) {
                     // using calledWith isn't working (maybe due to options being an object)
                     // so instead will dig into what it was called with manually
                     // expect(this.BaseCollection.prototype.fetch.calledWith({url: 'testing-url-44024'})).to.be.true;
-                    expect(this.BaseCollection.prototype.fetch.args[0][0].url == 'testing-url-44024').to.be.true;
+                    expect(this.BaseCollection.prototype.fetch.args[0][0].url === 'testing-url-44024').to.be.true;
                     HoursCollection.prototype.buildUrl.restore();
                 });
             });
