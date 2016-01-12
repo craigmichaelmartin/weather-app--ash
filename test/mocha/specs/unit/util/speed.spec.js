@@ -13,7 +13,7 @@ define(function (require) {
             });
 
             it('should return english to x digits', function () {
-                var speed = speedUtils.getScaledSpeed('english', 10, 2);
+                var speed = speedUtils.getScaledSpeed('english', 10, {toFixed: 2});
                 expect(speed).to.eql('10.00');
             });
 
@@ -23,7 +23,7 @@ define(function (require) {
             });
 
             it('should return metric to x digits', function () {
-                var speed = speedUtils.getScaledSpeed('metric', 10, 2);
+                var speed = speedUtils.getScaledSpeed('metric', 10, {toFixed: 2});
                 expect(speed).to.eql('16.09');
             });
 

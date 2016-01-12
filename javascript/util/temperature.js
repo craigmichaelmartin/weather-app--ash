@@ -3,13 +3,14 @@ define([
 
     'use strict';
 
-    var getScaledTemperature = function (scale, englishNumber, toFixed) {
-        toFixed || (toFixed = 0);
+    var getScaledTemperature = function (scale, englishNumber, options) {
+        options || (options = {});
+        options.toFixed || (options.toFixed = 0);
         if (scale === 'english') {
-            return (+englishNumber).toFixed(toFixed);
+            return (+englishNumber).toFixed(options.toFixed);
         }
         if (scale === 'metric') {
-            return ((englishNumber - 32) * 5 / 9).toFixed(toFixed);
+            return ((englishNumber - 32) * 5 / 9).toFixed(options.toFixed);
         }
         throw 'Cannot convert to scale "' + scale + '"';
     };

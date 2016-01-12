@@ -15,7 +15,7 @@ define(function (require) {
             });
 
             it('should return english to x digits when passed in english and asked for english to x digits', function () {
-                var hopeful = Handlebars.helpers.temperature('english', 32, 2);
+                var hopeful = Handlebars.helpers.temperature('english', 32, {toFixed: 2});
                 var expected = new Handlebars.SafeString('32.00&deg;F');
                 expect(hopeful).to.eql(expected);
             });
@@ -27,7 +27,7 @@ define(function (require) {
             });
 
             it('should return metric to x digits when passed in english and asked for metric to x digits', function () {
-                var hopeful = Handlebars.helpers.temperature('metric', 32, 2);
+                var hopeful = Handlebars.helpers.temperature('metric', 32, {toFixed: 2});
                 var expected = new Handlebars.SafeString('0.00&deg;C');
                 expect(hopeful).to.eql(expected);
             });
@@ -43,7 +43,7 @@ define(function (require) {
             });
 
             it('should return english to x digits when passed in english and asked for english to x digits', function () {
-                var hopeful = Handlebars.helpers.temperatureNoUnits('english', 32, 2);
+                var hopeful = Handlebars.helpers.temperatureNoUnits('english', 32, {toFixed: 2});
                 var expected = new Handlebars.SafeString('32.00&deg;');
                 expect(hopeful).to.eql(expected);
             });
@@ -55,7 +55,7 @@ define(function (require) {
             });
 
             it('should return metric to x digits when passed in english and asked for metric to x digits', function () {
-                var hopeful = Handlebars.helpers.temperatureNoUnits('metric', 32, 2);
+                var hopeful = Handlebars.helpers.temperatureNoUnits('metric', 32, {toFixed: 2});
                 var expected = new Handlebars.SafeString('0.00&deg;');
                 expect(hopeful).to.eql(expected);
             });
@@ -77,43 +77,43 @@ define(function (require) {
             });
 
             it('should return english to x digits when passed in english and asked for english to x digits', function () {
-                var hopeful = Handlebars.helpers.length('english', 2, null, 2);
+                var hopeful = Handlebars.helpers.length('english', 2, {toFixed: 2});
                 var expected = new Handlebars.SafeString('2.00 inches');
                 expect(hopeful).to.eql(expected);
             });
 
             it('should return english for one unit to x digits when passed in english and asked for english to x digits', function () {
-                var hopeful = Handlebars.helpers.length('english', 1, null, 2);
+                var hopeful = Handlebars.helpers.length('english', 1, {toFixed: 2});
                 var expected = new Handlebars.SafeString('1.00 inch');
                 expect(hopeful).to.eql(expected);
             });
 
             it('should return metric (mm) when passed in english and asked for metric', function () {
-                var hopeful = Handlebars.helpers.length('metric', 1, 'mm');
+                var hopeful = Handlebars.helpers.length('metric', 1, {metricUnit: 'mm'});
                 var expected = new Handlebars.SafeString('254 millimeters');
                 expect(hopeful).to.eql(expected);
             });
 
             it('should return metric (cm) when passed in english and asked for metric', function () {
-                var hopeful = Handlebars.helpers.length('metric', 1, 'cm');
+                var hopeful = Handlebars.helpers.length('metric', 1, {metricUnit: 'cm'});
                 var expected = new Handlebars.SafeString('3 centimeters');
                 expect(hopeful).to.eql(expected);
             });
 
             it('should return metric for one unit when passed in english and asked for metric', function () {
-                var hopeful = Handlebars.helpers.length('metric', lengthUtils.inchesToCentimeters, 'cm');
+                var hopeful = Handlebars.helpers.length('metric', lengthUtils.inchesToCentimeters, {metricUnit: 'cm'});
                 var expected = new Handlebars.SafeString('1 centimeter');
                 expect(hopeful).to.eql(expected);
             });
 
             it('should return metric for one unit to x digits when passed in english and asked for metric to x digits', function () {
-                var hopeful = Handlebars.helpers.length('metric', lengthUtils.inchesToCentimeters, 'cm', 2);
+                var hopeful = Handlebars.helpers.length('metric', lengthUtils.inchesToCentimeters, {metricUnit: 'cm', toFixed: 2});
                 var expected = new Handlebars.SafeString('1.00 centimeter');
                 expect(hopeful).to.eql(expected);
             });
 
             it('should return metric to x digits when passed in english and asked for metric to x digits', function () {
-                var hopeful = Handlebars.helpers.length('metric', 1, 'cm', 2);
+                var hopeful = Handlebars.helpers.length('metric', 1, {metricUnit: 'cm', toFixed: 2});
                 var expected = new Handlebars.SafeString('2.54 centimeters');
                 expect(hopeful).to.eql(expected);
             });

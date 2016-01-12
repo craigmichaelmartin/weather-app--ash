@@ -10,24 +10,24 @@ define([
 
     'use strict';
 
-    Handlebars.registerHelper('temperature', function (scale, englishNumber, toFixed) {
-        var temperatureRaw = tempUtils.getScaledTemperature(scale, englishNumber, toFixed);
+    Handlebars.registerHelper('temperature', function (scale, englishNumber, options) {
+        var temperatureRaw = tempUtils.getScaledTemperature(scale, englishNumber, options);
         var postfix = '&deg;' + (scale === 'metric' ? 'C' : 'F');
         return new Handlebars.SafeString(temperatureRaw + postfix);
     });
 
-    Handlebars.registerHelper('temperatureNoUnits', function (scale, englishNumber, toFixed) {
-        var temperatureRaw = tempUtils.getScaledTemperature(scale, englishNumber, toFixed);
+    Handlebars.registerHelper('temperatureNoUnits', function (scale, englishNumber, options) {
+        var temperatureRaw = tempUtils.getScaledTemperature(scale, englishNumber, options);
         return new Handlebars.SafeString(temperatureRaw + '&deg;');
     });
 
-    Handlebars.registerHelper('length', function (scale, englishNumber, details, toFixed) {
-        var length = lengthUtils.getScaledLength(scale, englishNumber, details, toFixed);
+    Handlebars.registerHelper('length', function (scale, englishNumber, options) {
+        var length = lengthUtils.getScaledLength(scale, englishNumber, options);
         return new Handlebars.SafeString(length);
     });
 
-    Handlebars.registerHelper('speed', function (scale, englishNumber, toFixed) {
-        var speed = speedUtils.getScaledSpeed(scale, englishNumber, toFixed);
+    Handlebars.registerHelper('speed', function (scale, englishNumber, options) {
+        var speed = speedUtils.getScaledSpeed(scale, englishNumber, options);
         var postfix = scale === 'metric' ? ' kph' : ' mph';
         return new Handlebars.SafeString(speed + postfix);
     });

@@ -94,7 +94,7 @@ define(function (require) {
                     });
 
                     it('should not be set and contain an error message for hour without day', function () {
-                        expect(this.appState.set({ zip: 44147, hour: 13, day: null }, {validate: true})).to.be.false;
+                        expect(this.appState.set({ zip: 44147, hour: 13, day: undefined }, {validate: true})).to.be.false;
                         expect(this.appState.validationError).to.eql([AppStateModel.prototype.hourNeedsDay]);
                         expect(this.message).to.eql([this.appState.hourNeedsDay]);
                     });
