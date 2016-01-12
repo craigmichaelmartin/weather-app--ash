@@ -17,7 +17,7 @@ module.exports = function (grunt) {
         config: config,
 
         connect: {
-            production: {
+            demo: {
                 options: {
                     hostname: '127.0.0.1',
                     port: 9001,
@@ -26,7 +26,7 @@ module.exports = function (grunt) {
                     base: 'dist',
                 }
             },
-            development: {
+            dev: {
                 options: {
                     hostname: '127.0.0.1',
                     port: 8080,
@@ -231,8 +231,8 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.registerTask('dist-css', ['less', 'autoprefixer', 'csscomb', 'cssmin']);
-    grunt.registerTask('runserver:dev', ['connect:development']);
-    grunt.registerTask('runserver', ['connect:production']);
+    grunt.registerTask('runserver:dev', ['connect:dev']);
+    grunt.registerTask('runserver', ['connect:demo']);
     grunt.registerTask('test', ['less', 'csslint', 'jscs', 'jshint', 'karma:test']);
     grunt.registerTask('dist', ['test', 'autoprefixer', 'csscomb', 'cssmin', 'requirejs']);
     grunt.registerTask('default', ['dist']);
