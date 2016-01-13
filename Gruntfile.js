@@ -23,7 +23,7 @@ module.exports = function (grunt) {
                     port: 9001,
                     keepalive: true,
                     open: true,
-                    base: 'dist',
+                    base: './',
                 }
             },
             dev: {
@@ -32,7 +32,8 @@ module.exports = function (grunt) {
                     port: 8080,
                     keepalive: true,
                     //livereload: 35729,
-                    debug: true
+                    debug: true,
+                    base: '../'
                 }
             }
         },
@@ -147,9 +148,9 @@ module.exports = function (grunt) {
                     baseUrl: "./<%= config.javascript %>",
                     removeCombined: true,
                     findNestedDependencies: true,
-                    dir: "dist/",
+                    dir: "weather-app--ash/",
                     optimize: "uglify",
-                    skipDirOptimize: false,
+                    skipDirOptimize: true,
                     optimizeCss: 'standard',
                     fileExclusionRegExp: /^node_modules$/,
                     modules: [{

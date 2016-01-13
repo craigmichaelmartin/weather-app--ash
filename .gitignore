@@ -1,4 +1,4 @@
-dist/*
+weather-app--ash/*
 components/*
 public/vendor/*
 node_modules/*
