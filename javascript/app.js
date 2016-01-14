@@ -63,13 +63,13 @@ define([
             this.$el.addClass(this.getConditionClass(condition));
         },
 
-        // Returns a condition in the set {rainy, snowy, clear, cloudy}
+        // Returns a condition in the set {snowy, rainy, clear, cloudy}
         getConditionClass: function (condition) {
-            if (/rain|thunderstorm|showers/i.test(condition)) {
-                return 'is-rainy';
-            }
             if (/snow/i.test(condition)) {
                 return 'is-snowy';
+            }
+            if (/rain|thunderstorm|showers/i.test(condition)) {
+                return 'is-rainy';
             }
             if (/clear|sunny/i.test(condition)) {
                 return 'is-clear';

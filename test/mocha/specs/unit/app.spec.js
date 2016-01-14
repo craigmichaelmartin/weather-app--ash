@@ -21,6 +21,7 @@ define(function (require) {
                 expect(AppView.prototype.getConditionClass('chance of snow')).to.equal('is-snowy');
                 expect(AppView.prototype.getConditionClass('3-4 inches of snow')).to.equal('is-snowy');
                 expect(AppView.prototype.getConditionClass('heavy snowfall')).to.equal('is-snowy');
+                expect(AppView.prototype.getConditionClass('snow showers')).to.equal('is-snowy');
             });
 
             it('should return is-clear when clear', function () {
