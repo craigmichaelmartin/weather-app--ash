@@ -55,8 +55,8 @@ define([
             var getPresentationTime = function (d) {
                 return timeUtils.getScaledTime(this.appState.get('scale'), d.time, {hideMinutes: true});
             };
-            var getTemp = function (d) {
-                return d.temp;
+            var getAbsTemp = function (d) {
+                return Math.abs(d.temp);
             };
             var getPresentationTemp = function (d) {
                 return tempUtils.getScaledTemperature(this.appState.get('scale'), d.temp) + '°';
@@ -99,7 +99,7 @@ define([
             }).bind(this));
 
             x.domain(data.map(getTime));
-            y.domain([0, d3.max(data, getTemp)]);
+            y.domain([0, d3.max(data, getAbsTemp)]);
 
             var self = this;
             xAxis.tickValues(
