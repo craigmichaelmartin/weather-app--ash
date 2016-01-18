@@ -1,6 +1,7 @@
 define([
-    'models/model'
-], function (Model) {
+    'models/model',
+    'underscore'
+], function (Model, _) {
 
     'use strict';
 
@@ -26,7 +27,7 @@ define([
 
         parse: function (results) {
             // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-            return {
+            return _.mapObject({
                 condition: results.conditions,
                 iconUrl: results.icon_url,
                 iconAlt: results.icon,
@@ -41,7 +42,12 @@ define([
                 averageWindDirection: results.avewind.dir,
                 averageWind: results.avewind.mph,
                 precipitation: results.qpf_allday.in
-            };
+            }, function (val) {
+                if (val === '-9999' || val === '-999') {
+                    return void 0;
+                }
+                return val;
+            });
             // jscs:enabled requireCamelCaseOrUpperCaseIdentifiers
         }
 

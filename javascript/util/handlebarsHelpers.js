@@ -11,22 +11,34 @@ define([
     'use strict';
 
     Handlebars.registerHelper('temperature', function (scale, englishNumber, options) {
+        if (englishNumber === void 0) {
+            return 'unavailable';
+        }
         var temperatureRaw = tempUtils.getScaledTemperature(scale, englishNumber, options);
         var postfix = '&deg;' + (scale === 'metric' ? 'C' : 'F');
         return new Handlebars.SafeString(temperatureRaw + postfix);
     });
 
     Handlebars.registerHelper('temperatureNoUnits', function (scale, englishNumber, options) {
+        if (englishNumber === void 0) {
+            return 'unavailable';
+        }
         var temperatureRaw = tempUtils.getScaledTemperature(scale, englishNumber, options);
         return new Handlebars.SafeString(temperatureRaw + '&deg;');
     });
 
     Handlebars.registerHelper('length', function (scale, englishNumber, options) {
+        if (englishNumber === void 0) {
+            return 'unavailable';
+        }
         var length = lengthUtils.getScaledLength(scale, englishNumber, options);
         return new Handlebars.SafeString(length);
     });
 
     Handlebars.registerHelper('speed', function (scale, englishNumber, options) {
+        if (englishNumber === void 0) {
+            return 'unavailable';
+        }
         var speed = speedUtils.getScaledSpeed(scale, englishNumber, options);
         var postfix = scale === 'metric' ? ' kph' : ' mph';
         return new Handlebars.SafeString(speed + postfix);

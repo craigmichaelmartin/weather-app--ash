@@ -1,6 +1,7 @@
 define([
-    'models/model'
-], function (Model) {
+    'models/model',
+    'underscore'
+], function (Model, _) {
 
     'use strict';
 
@@ -23,7 +24,7 @@ define([
 
         parse: function (results) {
             // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-            return {
+            return _.mapObject({
                 monthname: results.FCTTIME.month_name,
                 weekday: results.FCTTIME.weekday_name,
                 weekdayShort: results.FCTTIME.weekday_name_abbrev,
@@ -40,7 +41,12 @@ define([
                 windDirection: results.wdir.dir,
                 windSpeed: results.wspd.english,
                 precipitation: results.qpf.english
-            };
+            }, function (val) {
+                if (val === '-9999' || val === '-999') {
+                    return void 0;
+                }
+                return val;
+            });
             // jscs:enabled requireCamelCaseOrUpperCaseIdentifiers
         }
 
