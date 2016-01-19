@@ -23,10 +23,14 @@ define([
             this.model = options.appState;
             this.currentHour = options.currentHour;
             this.render();
-            this.listenTo(this.model, 'change:zip', this.render);   // discepancy in time between these two
-            this.listenTo(this.model, 'dataReady', this.render);    // is the loading time. todo: loading visual
+            this.listenTo(this.model, 'change:zip', this.indicateLoading);
+            this.listenTo(this.model, 'dataReady', this.render);
             this.listenTo(this.model, 'change:scale', this.render);
             this.listenTo(this.model, 'invalid', this.flagInvalidZip);
+        },
+
+        indicateLoading: function () {
+            this.$('.js-spinner').show();
         },
 
         flagInvalidZip: function (e) {
