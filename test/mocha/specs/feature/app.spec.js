@@ -28,6 +28,10 @@ define(function (require) {
                     expect($('.js-edit').css('display')).to.equal('none');
                 });
 
+                it('spinner should be hidden', function () {
+                    expect($('.js-spinner').css('display')).to.equal('none');
+                });
+
             });
 
         });

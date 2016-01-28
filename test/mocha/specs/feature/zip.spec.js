@@ -87,25 +87,35 @@ define(function (require) {
                         });
 
                         beforeEach(function () {
-                            // these pass but don't really check accurately because changed validateZip
                             $('.js-edit').blur();
                             $('.js-edit').focusout();
+                        });
+
+                        it('should show and hide the spinner appropriately', function () {
+                            setTimeout(function() {
+                                expect($('.js-spinner').css('display')).to.equal('inline-block')
+                            }, 0);
                             this.server.respond();
+                            expect($('.js-spinner').css('display')).to.equal('none');
                         });
 
                         it('should hide the input', function () {
+                            this.server.respond();
                             expect($('.js-edit').css('display')).to.equal('none');
                         });
 
                         it('should show the display', function () {
+                            this.server.respond();
                             expect($('.js-zip-display').css('display')).to.equal('inline');
                         });
 
                         it('should set the appState', function () {
+                            this.server.respond();
                             expect(this.app.appState.get('zip')).to.equal(44023);
                         });
 
                         it('should fetch the new forecast', function () {
+                            this.server.respond();
                             var hourRequests = _.where(this.server.requests, {
                                 url: 'http://api.wunderground.com/api/3f6df2a3f0916b99/hourly10day/q/44023.json'
                             });

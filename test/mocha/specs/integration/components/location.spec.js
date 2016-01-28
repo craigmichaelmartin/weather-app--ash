@@ -18,12 +18,14 @@ define(function (require) {
                     this.appState = new AppStateModel();
                     sinon.stub(LocationView.prototype, 'render');
                     sinon.stub(LocationView.prototype, 'flagInvalidZip');
+                    sinon.stub(LocationView.prototype, 'indicateLoading');
                     this.locationView = new LocationView({appState: this.appState});
                 });
 
                 afterEach(function () {
                     LocationView.prototype.render.restore();
                     LocationView.prototype.flagInvalidZip.restore();
+                    LocationView.prototype.indicateLoading.restore();
 
                 });
 
@@ -31,14 +33,13 @@ define(function (require) {
 
                     it('should correctly respond to dataReady', function () {
                         this.appState.trigger('dataReady');
-                        // useing called twice because initialize calls it once
+                        // using called twice because initialize calls it once
                         expect(this.locationView.render.calledTwice).to.be.true;
                     });
 
                     it('should correctly respond to changing zip', function () {
                         this.appState.trigger('change:zip');
-                        // useing called twice because initialize calls it once
-                        expect(this.locationView.render.calledTwice).to.be.true;
+                        expect(this.locationView.indicateLoading.calledOnce).to.be.true;
                     });
 
                     it('should correctly respond to invalid trigger', function () {
