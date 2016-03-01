@@ -92,8 +92,8 @@ define(function (require) {
                         });
 
                         it('should show and hide the spinner appropriately', function () {
-                            setTimeout(function() {
-                                expect($('.js-spinner').css('display')).to.equal('inline-block')
+                            setTimeout(function () {
+                                expect($('.js-spinner').css('display')).to.equal('inline-block');
                             }, 0);
                             this.server.respond();
                             expect($('.js-spinner').css('display')).to.equal('none');
