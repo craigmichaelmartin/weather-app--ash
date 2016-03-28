@@ -29,11 +29,11 @@ define(function (require) {
             describe('the buildUrl function', function () {
 
                 it('should correctly handle no zip', function () {
-                    expect(this.day.buildUrl()).to.equal('http://api.wunderground.com/api/3f6df2a3f0916b99/hourly/q/autoip.json');
+                    expect(this.day.buildUrl()).to.equal('//api.wunderground.com/api/3f6df2a3f0916b99/hourly/q/autoip.json');
                 });
 
                 it('should correctly handle a zip', function () {
-                    expect(this.day.buildUrl(44024)).to.equal('http://api.wunderground.com/api/3f6df2a3f0916b99/hourly/q/44024.json');
+                    expect(this.day.buildUrl(44024)).to.equal('//api.wunderground.com/api/3f6df2a3f0916b99/hourly/q/44024.json');
                 });
 
             });
